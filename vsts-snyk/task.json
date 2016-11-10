@@ -1,0 +1,29 @@
+{
+  "id": "9fcb05af-0ffe-4687-99f2-99821aad927e",
+  "name": "SnykTask",
+  "friendlyName": "Run Snyk",
+  "description": "Run Snyk.",
+  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
+  "category": "Build",
+  "author": "Jesse Houwing",
+  "version": {
+    "Major": 0,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "visibility": [
+    "Build"
+  ],
+  "minimumAgentVersion": "1.83.0",
+  "groups": [
+  ],
+  "inputs": [
+  ],
+  "instanceNameFormat": "Run Snyk",
+  "execution": {
+    "Node": {
+      "target": "vsts-snyk.js",
+      "argumentFormat": ""
+    }
+  }
+}

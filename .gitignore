@@ -250,3 +250,8 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+.vs/
+vsts-snyk/vsts-snyk.js
+/.cr
+/vsts-snyk/typings

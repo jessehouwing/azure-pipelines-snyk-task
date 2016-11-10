@@ -1,0 +1,79 @@
+{
+  "manifestVersion": 1,
+  "id": "jessehouwing-vsts-snyk-task",
+  "name": "Snyk",
+  "version": "0.0.0",
+  "publisher": "jessehouwing",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "scope": [
+    "vso.build"
+  ],
+  "description": "Task to help you set those pesky MsBuild Properties.",
+  "categories": [
+    "Build and release"
+  ],
+  "tags": [
+    "Extension",
+    "Build",
+    "Snyk",
+    "Property",
+    "Code Analysis",
+    "Security",
+    "Node"
+  ],
+  "screenshots": [
+  ],
+  "content": {
+    "details": {
+      "path": "readme.md"
+    },
+    "license": {
+      "path": "license.txt"
+    }
+  },
+  "links": {
+    "getstarted": {
+      "uri": "https://github.com/jessehouwing/vsts-snyk-task/wiki"
+    },
+    "support": {
+      "uri": "https://github.com/jessehouwing/vsts-snyk-task/issues"
+    }
+  },
+  "branding": {
+    "color": "rgb(36, 43, 50)",
+    "theme": "dark"
+  },
+  "icons": {
+    "default": "extension/images/extension-icon.png"
+  },
+  "files": [
+    {
+      "path": "vsts-snyk/vsts-snyk.js"
+    },
+    {
+      "path": "vsts-snyk/node_modules/vsts-task-lib"
+    },
+    {
+      "path": "vsts-snyk/task.json"
+    },
+    {
+      "path": "vsts-snyk/icon.png"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "vsts-snyk",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "vsts-snyk"
+      }
+    }
+  ]
+}
