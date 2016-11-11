@@ -27,7 +27,7 @@
       "name": "Action",
       "type": "boolean",
       "label": "ActionTest",
-      "defaultValue": "false",
+      "defaultValue": "true",
       "required": true,
       "helpMarkDown": ""
     },
@@ -35,6 +35,14 @@
       "name": "Protect",
       "type": "boolean",
       "label": "ActionProtect",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": ""
+    },
+    {
+      "name": "Monitor",
+      "type": "boolean",
+      "label": "ActionMonitor",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": ""
@@ -81,6 +89,15 @@
       "type": "string",
       "groupName": "Advanced",
       "visibleRule": "AuthenticationType=token"
+    },
+    {
+      "name": "Fail build",
+      "type": "boolean",
+      "label": "OptionFailBuild",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "",
+      "groupName": "Advanced"
     },
     {
       "name": "Scan development dependencies",
