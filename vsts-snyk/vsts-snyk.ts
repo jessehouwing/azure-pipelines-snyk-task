@@ -2,20 +2,106 @@
 import * as tl from "vsts-task-lib/task";
 import * as trm from "vsts-task-lib/toolrunner";
 
+class Settings {
+    projectsToScan: string;
+    basePath: string;
+    auth: string;
+    failBuild: boolean;
+    dev: boolean;
+    ignorePolicy: boolean;
+    trustPolicies: boolean;
+    org: string;
+    additionalArguments: string;
+}
+
 async function run() {
     try {
-        const snyk = tl.which('snyk');
-        const snykRunner = new trm.ToolRunner(snyk);
+        const filePath: string = tl.getPathInput("pathToSnyk", true, true);
+        let snyk: string;
 
-        // Set the commandline arguments
-        snykRunner.arg(tl.getInput("samplestring", true));
+        if (!filePath) {
+            snyk = tl.which("snyk");
+        } else {
+            snyk = filePath;
+        }
 
-        const snykResult: number = await snykRunner.exec();
-        tl.setResult(snykResult, tl.loc("SnykReturnCode", snykResult));
+        const test: boolean = tl.getBoolInput("actionTest");
+        const protect: boolean = tl.getBoolInput("actioProtect");
+        const monitor: boolean = tl.getBoolInput("actionMonitor");
+
+        const settings: Settings = new Settings();
+        
+        settings.projectsToScan = tl.getInput("optionProjectsToScan");
+        settings.basePath = tl.getInput("optionBasePath");
+        tl.cd(settings.basePath || process.cwd());
+        
+        const authenticationType: string = tl.getInput("optionAuthenticationType");
+        switch (authenticationType)
+        {
+            case "token":
+            {
+                settings.auth = tl.getInput("optAuth", true);
+            }
+            case "endpoint":
+            {
+                const connectedServiceName: string = tl.getInput("optServiceEndpoint", false);
+                settings.auth = tl.getEndpointAuthorization(connectedServiceName, true).parameters["apitoken"];
+            }
+        }
+
+        settings.failBuild = tl.getBoolInput("optionFailBuild", true);
+        settings.dev = tl.getBoolInput("optionDev", true);
+        settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", true);
+        settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", true);
+        settings.org = tl.getInput("optionOrg", false);
+
+        settings.additionalArguments = tl.getInput("optAdditionalArguments", false);
+
+        if (protect || monitor) {
+            await runSnyk(snyk, "auth", settings);
+        }
+
+        if (test) {
+            await runSnyk(snyk, "test", settings);
+        }
+        if (protect) {
+            await runSnyk(snyk, "protect", settings);
+        }
+        if (monitor) {
+            await runSnyk(snyk, "monitor", settings);
+        }
     }
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
+}
+
+async function runSnyk(path: string, command: string, settings: Settings)
+{
+    const snykRunner = new trm.ToolRunner(path);
+    snykRunner.arg(command);
+
+    switch (command) {
+        case "auth":
+            snykRunner.arg(settings.auth);
+            break;
+        
+        case "test": 
+        case "protect":
+        case "monitor":
+            snykRunner.argIf(settings.projectsToScan, "--dev");
+            snykRunner.argIf(settings.dev, "--dev");
+            snykRunner.argIf(settings.ignorePolicy, "--ignore-policy");
+            snykRunner.argIf(settings.trustPolicies, "--trust-policies");
+            snykRunner.argIf(settings.org, `--org=${settings.org}`);
+            if (settings.additionalArguments) {
+                snykRunner.argString(settings.additionalArguments);
+            }
+            break;
+    }
+
+    const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
+    tl.setResult(snykResult, tl.loc("SnykReturnCode", snykResult));
 }
 
 run();

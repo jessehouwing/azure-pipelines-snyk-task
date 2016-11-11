@@ -1,8 +1,8 @@
 {
   "id": "970cf26e-82d3-41c0-be98-b891bac62eb4",
   "name": "SnykTask",
-  "friendlyName": "Run Snyk.",
-  "description": "Run Snyk.",
+  "friendlyName": "Snyk",
+  "description": "Run Snyk",
   "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
   "category": "Build",
   "author": "Jesse Houwing",
@@ -55,14 +55,14 @@
       "defaultValue": "**\\project.json",
       "helpMarkdown": "",
       "label": "Projects to scan",
-      "name": "OptionProjectsToScan",
+      "name": "optionProjectsToScan",
       "required": false,
       "type": "filePath"
     },
 
 
     {
-      "name": "AuthenticationType",
+      "name": "optionAuthenticationType",
       "type": "radio",
       "label": "Authentication Type",
       "required": true,
@@ -75,7 +75,7 @@
       "groupName": "Advanced"
     },
     {
-      "name": "ServiceEndpoint",
+      "name": "optServiceEndpoint",
       "type": "connectedService:Generic:Token",
       "label": "Auth (API Token)",
       "defaultValue": "",
@@ -88,7 +88,7 @@
       "defaultValue": "",
       "helpMarkdown": "",
       "label": "Auth (API Token)",
-      "name": "OptAuth",
+      "name": "optAuth",
       "required": false,
       "type": "string",
       "groupName": "Advanced",
@@ -143,7 +143,7 @@
       "defaultValue": "",
       "helpMarkdown": "",
       "label": "Additional arguments",
-      "name": "AdditionalArguments",
+      "name": "optAdditionalArguments",
       "required": false,
       "type": "string",
       "groupName": "Advanced"
