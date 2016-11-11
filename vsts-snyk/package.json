@@ -16,7 +16,7 @@
     "test": "snyk test"
   },
   "devDependencies": {
-    "typings": "^0.8.1",
-    "snyk": "^1.19.1"
+    "snyk": "^1.19.1",
+    "typings": "^0.8.1"
   }
 }
