@@ -28,25 +28,25 @@
   ],
   "inputs": [
     {
-      "name": "Action",
+      "name": "actionTest",
       "type": "boolean",
-      "label": "ActionTest",
+      "label": "Test",
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": ""
     },
     {
-      "name": "Protect",
+      "name": "actionProtect",
       "type": "boolean",
-      "label": "ActionProtect",
+      "label": "Protect",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": ""
     },
     {
-      "name": "Monitor",
+      "name": "actionMonitor",
       "type": "boolean",
-      "label": "ActionMonitor",
+      "label": "Monitor",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": ""
@@ -57,7 +57,7 @@
       "label": "Projects to scan",
       "name": "OptionProjectsToScan",
       "required": false,
-      "type": "filePicker"
+      "type": "filePath"
     },
 
 
@@ -66,7 +66,7 @@
       "type": "radio",
       "label": "Authentication Type",
       "required": true,
-      "defaultValue": "endpoint",
+      "defaultValue": "none",
       "options": {
         "none": "None",
         "endpoint": "Endpoint",
@@ -95,36 +95,36 @@
       "visibleRule": "AuthenticationType=token"
     },
     {
-      "name": "Fail build",
+      "name": "optionFailBuild",
       "type": "boolean",
-      "label": "OptionFailBuild",
+      "label": "Fail Build",
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": "",
       "groupName": "Advanced"
     },
     {
-      "name": "Scan development dependencies",
+      "name": "optionDev",
       "type": "boolean",
-      "label": "OptionDev",
+      "label": "Scan development dependencies",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "",
       "groupName": "Advanced"
     },
     {
-      "name": "Ignore policy",
+      "name": "optionIgnorePolicy",
       "type": "boolean",
-      "label": "OptionIgnorePolicy",
+      "label": "Ignore policy",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "",
       "groupName": "Advanced"
     },
     {
-      "name": "Trust policies",
+      "name": "optionTrustPolicies",
       "type": "boolean",
-      "label": "OptionTrustPolicies",
+      "label": "Trust policies",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "",
@@ -134,7 +134,7 @@
       "defaultValue": "",
       "helpMarkdown": "",
       "label": "Organization",
-      "name": "OptionOrg",
+      "name": "optionOrg",
       "required": false,
       "type": "string",
       "groupName": "Advanced"
@@ -146,6 +146,15 @@
       "name": "AdditionalArguments",
       "required": false,
       "type": "string",
+      "groupName": "Advanced"
+    },
+    {
+      "defaultValue": "",
+      "helpMarkdown": "",
+      "label": "Path to Snyk",
+      "name": "pathToSnyk",
+      "required": false,
+      "type": "filePath",
       "groupName": "Advanced"
     }
   ],
