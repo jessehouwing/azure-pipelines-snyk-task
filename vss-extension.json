@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "jessehouwing-vsts-snyk-task",
-  "name": "Snyk",
+  "name": "Snyk Task",
   "version": "0.0.0",
   "publisher": "jessehouwing",
   "targets": [
@@ -12,7 +12,7 @@
   "scope": [
     "vso.build"
   ],
-  "description": "Task to help you set those pesky MsBuild Properties.",
+  "description": "Check the security of your NPM packages.",
   "categories": [
     "Build and release"
   ],
