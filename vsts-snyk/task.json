@@ -1,7 +1,7 @@
 {
-  "id": "9fcb05af-0ffe-4687-99f2-99821aad927e",
+  "id": "970cf26e-82d3-41c0-be98-b891bac62eb4",
   "name": "SnykTask",
-  "friendlyName": "Run Snyk",
+  "friendlyName": "Run Snyk.",
   "description": "Run Snyk.",
   "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
   "category": "Build",
@@ -16,10 +16,119 @@
   ],
   "minimumAgentVersion": "1.83.0",
   "groups": [
+    {
+      "name": "Advanced",
+      "displayName": "Advanced",
+      "isExpanded": false
+    }
   ],
   "inputs": [
+    {
+      "name": "Action",
+      "type": "boolean",
+      "label": "ActionTest",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": ""
+    },
+    {
+      "name": "Protect",
+      "type": "boolean",
+      "label": "ActionProtect",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": ""
+    },
+    {
+      "defaultValue": "**\\project.json",
+      "helpMarkdown": "",
+      "label": "Projects to scan",
+      "name": "OptionProjectsToScan",
+      "required": false,
+      "type": "filePicker"
+    },
+
+
+    {
+      "name": "AuthenticationType",
+      "type": "radio",
+      "label": "Authentication Type",
+      "required": true,
+      "defaultValue": "endpoint",
+      "options": {
+        "none": "None",
+        "endpoint": "Endpoint",
+        "token": "API Token"
+      },
+      "groupName": "Advanced"
+    },
+    {
+      "name": "ServiceEndpoint",
+      "type": "connectedService:Generic:Token",
+      "label": "Auth (API Token)",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "",
+      "groupName": "Advanced",
+      "visibleRule": "AuthenticationType=endpoint"
+    },
+    {
+      "defaultValue": "",
+      "helpMarkdown": "",
+      "label": "Auth (API Token)",
+      "name": "OptAuth",
+      "required": false,
+      "type": "string",
+      "groupName": "Advanced",
+      "visibleRule": "AuthenticationType=token"
+    },
+    {
+      "name": "Scan development dependencies",
+      "type": "boolean",
+      "label": "OptionDev",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": "",
+      "groupName": "Advanced"
+    },
+    {
+      "name": "Ignore policy",
+      "type": "boolean",
+      "label": "OptionIgnorePolicy",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": "",
+      "groupName": "Advanced"
+    },
+    {
+      "name": "Trust policies",
+      "type": "boolean",
+      "label": "OptionTrustPolicies",
+      "defaultValue": "false",
+      "required": true,
+      "helpMarkDown": "",
+      "groupName": "Advanced"
+    },
+    {
+      "defaultValue": "",
+      "helpMarkdown": "",
+      "label": "Organization",
+      "name": "OptionOrg",
+      "required": false,
+      "type": "string",
+      "groupName": "Advanced"
+    },
+    {
+      "defaultValue": "",
+      "helpMarkdown": "",
+      "label": "Additional arguments",
+      "name": "AdditionalArguments",
+      "required": false,
+      "type": "string",
+      "groupName": "Advanced"
+    }
   ],
-  "instanceNameFormat": "Run Snyk",
+  "instanceNameFormat": "Run Snyk.",
   "execution": {
     "Node": {
       "target": "vsts-snyk.js",
