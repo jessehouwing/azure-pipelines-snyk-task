@@ -26,6 +26,9 @@
     "Node"
   ],
   "screenshots": [
+    {
+      "path": "extension/Images/Screenshots/snyk-logo.png"
+    }
   ],
   "content": {
     "details": {
@@ -36,32 +39,55 @@
     }
   },
   "links": {
+    "home": {
+      "uri": "https://blog.jessehouwing.nl/"
+    },
     "getstarted": {
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/wiki"
     },
     "support": {
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/issues"
+    },
+    "repository": {
+      "uri": "https://github.com/jessehouwing/vsts-snyk-task/"
+    },
+    "issues": {
+      "uri": "https://github.com/jessehouwing/vsts-snyk-task/issues"
     }
   },
   "branding": {
-    "color": "rgb(36, 43, 50)",
+    "color": "rgb(34, 44, 72)",
     "theme": "dark"
   },
   "icons": {
-    "default": "extension/images/extension-icon.png"
+    "default": "extension/images/extension-icon-small.png",
+    "large": "extension/images/extension-icon.png"
   },
   "files": [
     {
-      "path": "vsts-snyk/vsts-snyk.js"
+      "path": "vsts-snyk"
+    }
+  ],
+  "badges": [
+    {
+      "href": "https://example.org",
+      "uri": "https://example.org",
+      "description": "Build status"
     },
     {
-      "path": "vsts-snyk/node_modules/vsts-task-lib"
+      "href": "https://gitter.im",
+      "uri": "https://gitter.im",
+      "description": "Get involved"
     },
     {
-      "path": "vsts-snyk/task.json"
+      "href": "https://snyk.io",
+      "uri": "https://snyk.io",
+      "description": "Snyk"
     },
     {
-      "path": "vsts-snyk/icon.png"
+      "href": "https://paypal.me/jessehouwing/5",
+      "uri": "https://paypal.me/jessehouwing/5",
+      "description": "Donate"
     }
   ],
   "contributions": [
