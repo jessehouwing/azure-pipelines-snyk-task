@@ -20,10 +20,10 @@
     "Extension",
     "Build",
     "Snyk",
-    "Property",
     "Code Analysis",
     "Security",
-    "Node"
+    "Scanning",
+    "Node", "Npm"
   ],
   "screenshots": [
     {
@@ -86,7 +86,7 @@
     },
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://paypal.me/jessehouwing/5",
+      "uri": "https://www.paypalobjects.com/webstatic/mktg/merchant_portal/button/donate.en.png",
       "description": "Donate"
     }
   ],
