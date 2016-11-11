@@ -100,6 +100,26 @@
       "properties": {
         "name": "vsts-snyk"
       }
+    },
+
+    {
+      "id": "snykio-service-endpoint",
+      "description": "Snyk.io",
+      "type": "ms.vss-endpoint.service-endpoint-type",
+      "targets": [
+        "ms.vss-endpoint.endpoint-types"
+      ],
+      "properties": {
+        "name": "Snyk",
+        "displayName": "Snyk.io Auth Token",
+        "url": "https://snyk.io/",
+        "authenticationSchemes": [
+          {
+            "type": "ms.vss-endpoint.endpoint-auth-scheme-token"
+          }
+        ]
+      }
     }
+
   ]
 }

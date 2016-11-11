@@ -52,9 +52,9 @@
       "helpMarkDown": ""
     },
     {
-      "defaultValue": "**\\project.json",
+      "defaultValue": "$(Build.SourcesDirectory)",
       "helpMarkdown": "",
-      "label": "Projects to scan",
+      "label": "Project folder",
       "name": "optionProjectsToScan",
       "required": false,
       "type": "filePath"
@@ -72,18 +72,17 @@
         "endpoint": "Endpoint",
         "token": "API Token"
       },
-      "groupName": "Advanced",
-      "visibleRule": "actionProtect=true||actionMonitor=true"
+      "groupName": "Advanced"
     },
     {
       "name": "optServiceEndpoint",
-      "type": "connectedService:Generic:Token",
+      "type": "connectedService:Snyk",
       "label": "Auth (API Token)",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "",
       "groupName": "Advanced",
-      "visibleRule": "AuthenticationType=endpoint"
+      "visibleRule": "optionAuthenticationType=endpoint"
     },
     {
       "defaultValue": "",
@@ -93,7 +92,7 @@
       "required": false,
       "type": "string",
       "groupName": "Advanced",
-      "visibleRule": "AuthenticationType=token"
+      "visibleRule": "optionAuthenticationType=token"
     },
     {
       "name": "optionFailBuild",

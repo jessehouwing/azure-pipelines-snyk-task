@@ -31,7 +31,7 @@ async function run() {
 
         const settings: Settings = new Settings();
         
-        settings.projectsToScan = tl.getInput("optionProjectsToScan");
+        settings.projectsToScan = tl.getInput("optionProjectsToScan", true);
         settings.basePath = tl.getInput("optionBasePath");
         tl.cd(settings.basePath || process.cwd());
         
@@ -87,11 +87,13 @@ async function runSnyk(path: string, command: string, settings: Settings)
         case "test": 
         case "protect":
         case "monitor":
-            snykRunner.argIf(settings.projectsToScan, "--dev");
+            snykRunner.arg(settings.projectsToScan);
+
             snykRunner.argIf(settings.dev, "--dev");
             snykRunner.argIf(settings.ignorePolicy, "--ignore-policy");
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org=${settings.org}`);
+
             if (settings.additionalArguments) {
                 snykRunner.argString(settings.additionalArguments);
             }
