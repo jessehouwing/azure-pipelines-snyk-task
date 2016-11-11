@@ -35,20 +35,6 @@ async function run() {
         settings.basePath = tl.getInput("optionBasePath");
         tl.cd(settings.basePath || process.cwd());
         
-        const authenticationType: string = tl.getInput("optionAuthenticationType");
-        switch (authenticationType)
-        {
-            case "token":
-            {
-                settings.auth = tl.getInput("optAuth", true);
-            }
-            case "endpoint":
-            {
-                const connectedServiceName: string = tl.getInput("optServiceEndpoint", false);
-                settings.auth = tl.getEndpointAuthorization(connectedServiceName, true).parameters["apitoken"];
-            }
-        }
-
         settings.failBuild = tl.getBoolInput("optionFailBuild", true);
         settings.dev = tl.getBoolInput("optionDev", true);
         settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", true);
@@ -58,6 +44,18 @@ async function run() {
         settings.additionalArguments = tl.getInput("optAdditionalArguments", false);
 
         if (protect || monitor) {
+            const authenticationType: string = tl.getInput("optionAuthenticationType");
+            switch (authenticationType) {
+                case "token":
+                    settings.auth = tl.getInput("optAuth", true);
+                    break;
+                case "endpoint": {
+                    const connectedServiceName: string = tl.getInput("optServiceEndpoint", false);
+                    settings.auth = tl.getEndpointAuthorization(connectedServiceName, true).parameters["apitoken"];
+                    break;
+                }
+            }
+
             await runSnyk(snyk, "auth", settings);
         }
 
@@ -101,7 +99,10 @@ async function runSnyk(path: string, command: string, settings: Settings)
     }
 
     const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
-    tl.setResult(snykResult, tl.loc("SnykReturnCode", snykResult));
+
+    if (!snykResult){
+        throw `Failed: ${command}: ${snykResult}`;
+    }
 }
 
 run();

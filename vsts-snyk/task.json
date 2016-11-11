@@ -72,7 +72,8 @@
         "endpoint": "Endpoint",
         "token": "API Token"
       },
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "visibleRule": "actionProtect=true||actionMonitor=true"
     },
     {
       "name": "optServiceEndpoint",
