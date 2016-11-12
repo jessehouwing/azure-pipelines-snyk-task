@@ -65,25 +65,22 @@
   },
   "files": [
     {
-      "path": "vsts-snyk"
+      "path": "vsts-snyk/node_modules/vsts-task-lib"
+    },
+    {
+      "path": "vsts-snyk/vsts-snyk.js"
+    },
+    {
+      "path": "vsts-snyk/icon.png"
+    },
+    {
+      "path": "vsts-snyk/icon.svg"
+    },
+    {
+      "path": "vsts-snyk/task.json"
     }
   ],
   "badges": [
-    {
-      "href": "https://example.org",
-      "uri": "https://example.org",
-      "description": "Build status"
-    },
-    {
-      "href": "https://gitter.im",
-      "uri": "https://gitter.im",
-      "description": "Get involved"
-    },
-    {
-      "href": "https://snyk.io",
-      "uri": "https://snyk.io",
-      "description": "Snyk"
-    },
     {
       "href": "https://paypal.me/jessehouwing/5",
       "uri": "https://www.paypalobjects.com/webstatic/mktg/merchant_portal/button/donate.en.png",
