@@ -2,7 +2,7 @@
   "id": "970cf26e-82d3-41c0-be98-b891bac62eb4",
   "name": "SnykTask",
   "friendlyName": "Snyk",
-  "description": "Run Snyk",
+  "description": "Run Snyk to scan your dependencies for vulnerabilities.",
   "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
   "category": "Build",
   "author": "Jesse Houwing",
@@ -33,7 +33,7 @@
       "label": "Test",
       "defaultValue": "true",
       "required": true,
-      "helpMarkDown": ""
+      "helpMarkDown": "Test for any known vulnerabilities."
     },
     {
       "name": "actionProtect",
@@ -41,7 +41,7 @@
       "label": "Protect",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": ""
+      "helpMarkDown": "Protect your code from vulnerabilities and optionally suppress specific vulnerabilities."
     },
     {
       "name": "actionMonitor",
@@ -49,11 +49,11 @@
       "label": "Monitor",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": ""
+      "helpMarkDown": "Record the state of dependencies and any vulnerabilities on snyk.io."
     },
     {
       "defaultValue": "$(Build.SourcesDirectory)",
-      "helpMarkdown": "",
+      "helpMarkdown": "Path to the folder containing your `package.json`.",
       "label": "Project folder",
       "name": "optionProjectsToScan",
       "required": false,
@@ -72,7 +72,8 @@
         "endpoint": "Endpoint",
         "token": "API Token"
       },
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security cnfigure a service endpoint."
     },
     {
       "name": "optServiceEndpoint",
@@ -80,13 +81,13 @@
       "label": "Auth (API Token)",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "",
+      "helpMarkDown": "Select and configure the service endpoint that has been configured with your snyk.io API token.",
       "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=endpoint"
     },
     {
-      "defaultValue": "",
-      "helpMarkdown": "",
+      "defaultValue": "$(Snyk.Token)",
+      "helpMarkdown": "Provide an API token directly, for security consider storing the value in a variable taht is marked secret.",
       "label": "Auth (API Token)",
       "name": "optAuth",
       "required": false,
@@ -100,16 +101,16 @@
       "label": "Fail Build",
       "defaultValue": "true",
       "required": true,
-      "helpMarkDown": "",
+      "helpMarkDown": "Fail the build when Snyk returns an error message.",
       "groupName": "Advanced"
     },
     {
       "name": "optionDev",
       "type": "boolean",
-      "label": "Scan development dependencies",
+      "label": "Include development dependencies",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "",
+      "helpMarkDown": "Include devDependencies (defaults to production only). (`--dev`)",
       "groupName": "Advanced"
     },
     {
@@ -118,7 +119,7 @@
       "label": "Ignore policy",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "",
+      "helpMarkDown": "Ignores and resets the state of your policy file. (`--ignore-policy`)",
       "groupName": "Advanced"
     },
     {
@@ -127,12 +128,12 @@
       "label": "Trust policies",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "",
+      "helpMarkDown": "Applies and uses ignore rules from your dependencies's Snyk policies, otherwise ignore policies are only shown as a suggestion. (`--trust-policies`)",
       "groupName": "Advanced"
     },
     {
       "defaultValue": "",
-      "helpMarkdown": "",
+      "helpMarkdown": "Associate a snapshot (or wizard snapshot) with a specific organisation. (`--org=<org>`).",
       "label": "Organization",
       "name": "optionOrg",
       "required": false,
@@ -141,7 +142,7 @@
     },
     {
       "defaultValue": "",
-      "helpMarkdown": "",
+      "helpMarkdown": "Supply any additional parameters to the call to snyk.",
       "label": "Additional arguments",
       "name": "optAdditionalArguments",
       "required": false,
@@ -150,7 +151,7 @@
     },
     {
       "defaultValue": "",
-      "helpMarkdown": "",
+      "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Agent.Workfolder)\\tools\\node_modules\\.bin\\snyk.cmd`)",
       "label": "Path to Snyk",
       "name": "pathToSnyk",
       "required": false,
@@ -158,7 +159,7 @@
       "groupName": "Advanced"
     }
   ],
-  "instanceNameFormat": "Run Snyk.",
+  "instanceNameFormat": "Run Snyk",
   "execution": {
     "Node": {
       "target": "vsts-snyk.js",
