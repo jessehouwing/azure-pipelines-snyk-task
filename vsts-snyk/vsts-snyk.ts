@@ -18,7 +18,7 @@ class Settings {
 async function run() {
     try {
         let snyk: string;
-        const snykInstallation = tl.getInput("optionSnykInstallation");
+        const snykInstallation = tl.getInput("optionSnykInstallation", true);
         switch (snykInstallation) {
             case "builtin":
             {
