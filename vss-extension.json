@@ -83,8 +83,13 @@
   "badges": [
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://www.paypalobjects.com/webstatic/mktg/merchant_portal/button/donate.en.png",
+      "uri": "https://github.com/jessehouwing/vsts-snyk-task/blob/master/extension/images/donate.png?raw=true",
       "description": "Donate"
+    },
+    {
+      "href": "https://jessehouwing.visualstudio.com/vsts-extensions/_build/definitionEditor?definitionId=42",
+      "uri": "https://jessehouwing.visualstudio.com/_apis/public/build/definitions/a88536a2-a889-45a3-a955-ddf1af8aeba1/42/badge",
+      "description": "Build"
     }
   ],
   "contributions": [
