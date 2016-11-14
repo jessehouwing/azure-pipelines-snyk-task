@@ -16,9 +16,12 @@ class Settings {
 
 async function run() {
     try {
-        const filePath: string = tl.getPathInput("pathToSnyk", false, true);
-        let snyk: string;
+        let filePath: string;
+        if (tl.filePathSupplied("pathToSnyk")) {
+            filePath = tl.getPathInput("pathToSnyk", false, true);
+        }
 
+        let snyk: string;
         if (!filePath) {
             snyk = tl.which("snyk");
         } else {
