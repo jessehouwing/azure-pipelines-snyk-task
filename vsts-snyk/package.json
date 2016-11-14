@@ -19,7 +19,8 @@
   "scripts": {
     "initdev:npm": "npm install",
     "initdev:typings": "typings install",
-    "initdev": "npm run initdev:npm  && npm run initdev:typings"
+    "initdev": "npm run initdev:npm  && npm run initdev:typings",
+    "build":  "tsc && npm dedupe && npm prune --production" 
   },
   "devDependencies": {
     "typescript": "^2.0.9",

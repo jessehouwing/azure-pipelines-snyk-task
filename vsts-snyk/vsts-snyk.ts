@@ -1,6 +1,7 @@
 ﻿///<reference path="./typings/index.d.ts" />
 import * as tl from "vsts-task-lib/task";
 import * as trm from "vsts-task-lib/toolrunner";
+import * as os from "os"
 
 class Settings {
     projectsToScan: string;
@@ -20,10 +21,17 @@ async function run() {
         const snykInstallation = tl.getInput("optionSnykInstallation");
         switch (snykInstallation) {
             case "builtin":
+            {
+                let isWindows: Boolean = os.platform() === "win32";
+
                 snyk = `${__dirname}/node_modules/.bin/snyk`;
+                if (isWindows) {
+                    snyk += ".cmd";
+                }
                 break;
+            }
             case "system":
-                snyk = tl.which("snyk");
+                snyk = tl.which("snyk", true);
                 break;
             case "path":
                 snyk = tl.getPathInput("pathToSnyk", true, true);

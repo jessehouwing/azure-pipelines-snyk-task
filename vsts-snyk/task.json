@@ -174,7 +174,7 @@
       "visibleRule": "optionSnykInstallation=path"
     }
   ],
-  "instanceNameFormat": "Run Snyk",
+  "instanceNameFormat": "Scan for vulnerable package dependencies.",
   "execution": {
     "Node": {
       "target": "vsts-snyk.js",
