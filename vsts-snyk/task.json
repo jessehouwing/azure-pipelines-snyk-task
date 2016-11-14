@@ -152,7 +152,7 @@
     {
       "name": "optionSnykInstallation",
       "type": "radio",
-      "label": "Authentication Type",
+      "label": "Snyk location",
       "required": true,
       "defaultValue": "builtin",
       "options": {
@@ -161,7 +161,7 @@
         "path":  "Path" 
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Select how to authenticate to snyk.io. For better security cnfigure a service endpoint."
+      "helpMarkdown": "Select which snyk executable to call."
     },
     {
       "defaultValue": "",
