@@ -40,7 +40,6 @@
     <Content Include="task.json" />
     <Content Include="tsconfig.json" />
     <Content Include="tslint.json" />
-    <Content Include="typings.json" />
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>

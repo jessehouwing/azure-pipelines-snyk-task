@@ -1,4 +1,4 @@
-﻿///<reference path="./typings/main.d.ts" />
+﻿///<reference path="./typings/index.d.ts" />
 import * as tl from "vsts-task-lib/task";
 import * as trm from "vsts-task-lib/toolrunner";
 
@@ -94,9 +94,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
 
-            if (settings.additionalArguments) {
-                snykRunner.argString(settings.additionalArguments);
-            }
+            snykRunner.argIf(settings.additionalArguments, settings.additionalArguments);
             break;
     }
 
