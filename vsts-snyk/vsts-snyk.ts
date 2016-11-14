@@ -16,13 +16,18 @@ class Settings {
 
 async function run() {
     try {
-        const filePath: string = tl.getPathInput("pathToSnyk", true, true);
+        const filePath: string = tl.getPathInput("pathToSnyk", false, true);
         let snyk: string;
 
         if (!filePath) {
             snyk = tl.which("snyk");
         } else {
             snyk = filePath;
+        }
+
+        if (!snyk) {
+            tl.setResult(tl.TaskResult.Failed, "Could not locate snyk.");
+            return;
         }
 
         const test: boolean = tl.getBoolInput("actionTest");
@@ -35,10 +40,10 @@ async function run() {
         settings.basePath = tl.getInput("optionBasePath");
         tl.cd(settings.basePath || process.cwd());
         
-        settings.failBuild = tl.getBoolInput("optionFailBuild", true);
-        settings.dev = tl.getBoolInput("optionDev", true);
-        settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", true);
-        settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", true);
+        settings.failBuild = tl.getBoolInput("optionFailBuild", false);
+        settings.dev = tl.getBoolInput("optionDev", false);
+        settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", false);
+        settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
         settings.org = tl.getInput("optionOrg", false);
 
         settings.additionalArguments = tl.getInput("optAdditionalArguments", false);
@@ -69,7 +74,7 @@ async function run() {
             await runSnyk(snyk, "monitor", settings);
         }
 
-        tl.setResult(tl.TaskResult.Succeeded, "Done");
+        tl.setResult(tl.TaskResult.Succeeded, "Done.");
     }
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
@@ -103,7 +108,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
     const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
     tl.debug(`result: ${snykResult}`);
 
-    if (!snykResult){
+    if (snykResult !== 0){
         throw `Failed: ${command}: ${snykResult}`;
     }
 }
