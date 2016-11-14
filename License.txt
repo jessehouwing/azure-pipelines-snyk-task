@@ -23,4 +23,4 @@ Third Party software
 
 This Visual Studio Team Services extension depends on:
 
-* vsts-task-lib 0.5.11 copyright Microsoft licensed under MIT
+* vsts-task-lib copyright Microsoft licensed under MIT
