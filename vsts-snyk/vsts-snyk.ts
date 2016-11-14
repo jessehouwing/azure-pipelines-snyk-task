@@ -26,7 +26,7 @@ async function run() {
         }
 
         const test: boolean = tl.getBoolInput("actionTest");
-        const protect: boolean = tl.getBoolInput("actioProtect");
+        const protect: boolean = tl.getBoolInput("actionProtect");
         const monitor: boolean = tl.getBoolInput("actionMonitor");
 
         const settings: Settings = new Settings();
@@ -68,6 +68,8 @@ async function run() {
         if (monitor) {
             await runSnyk(snyk, "monitor", settings);
         }
+
+        tl.setResult(tl.TaskResult.Succeeded, "Done");
     }
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
@@ -94,11 +96,12 @@ async function runSnyk(path: string, command: string, settings: Settings)
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
 
-            snykRunner.argIf(settings.additionalArguments, settings.additionalArguments);
+            snykRunner.arg(settings.additionalArguments);
             break;
     }
 
     const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
+    tl.debug(`result: ${snykResult}`);
 
     if (!snykResult){
         throw `Failed: ${command}: ${snykResult}`;
