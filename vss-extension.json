@@ -12,7 +12,7 @@
   "scope": [
     "vso.build"
   ],
-  "description": "Check the security of your NPM packages.",
+  "description": "Snyk continuously finds and fixes vulnerabilities in your dependencies.",
   "categories": [
     "Build and release"
   ],
@@ -23,7 +23,8 @@
     "Code Analysis",
     "Security",
     "Scanning",
-    "Node", "Npm"
+    "Node",
+    "Npm"
   ],
   "screenshots": [
     {
