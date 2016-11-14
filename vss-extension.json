@@ -65,6 +65,9 @@
   },
   "files": [
     {
+      "path": "vsts-snyk/node_modules/snyk"
+    },
+    {
       "path": "vsts-snyk/node_modules/vsts-task-lib"
     },
     {

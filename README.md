@@ -1,7 +1,7 @@
 # Preview and 3rd party notice
 
-* This task has been developed by Jesse Houwing and is not associated with Snyk.io.
 * This task is currently in preview. Please provide feedback and suggestions in the GitHub issues.
+* This task has been developed by Jesse Houwing and is not associated with Snyk.io.
 
 # Release Notes
 
@@ -10,7 +10,7 @@
 
 # Description
 
-Snyk provides a quick and simple way to detect insecure package dependencies and optionally enables you to patch/upgrade the insecurities in place.
+Snyk provides a quick and simple way to detect insecure package dependencies and optionally enables you to patch/upgrade the vulnerabilities in place.
 
 This task supports:
 
@@ -24,9 +24,9 @@ This task depends on snyk, which is not bundled in the current version. There ar
 
  * Install snyk by prepending a NPM package task:
   * command: `install`
-  * arguments: `snyk --prefix "$(Build.WorkFolder)\tools"`
-  * working directory: e.g. `$(Build.WorkFolder)\tools`
-  * Supply the path to snyk in the 'Path to Snyk' input, e.g. `$(Build.WorkFolder)\tools\node_modules\.bin\snyk.cmd`
+  * arguments: `snyk --prefix "$(Build.WorkFolder)\_tools"`
+  * working directory: e.g. `$(Build.WorkFolder)\_tools`
+  * Supply the path to snyk in the 'Path to Snyk' input, e.g. `$(Build.WorkFolder)\_tools\node_modules\.bin\snyk.cmd`
 
  * Install snyk on your build server
   * Optionally add its path to the systems path environment variable
@@ -41,4 +41,4 @@ This task depends on snyk, which is not bundled in the current version. There ar
 
 Please check the [Wiki](https://github.com/jessehouwing/vsts-snyk-task/wiki) (coming soon).
 
-If you have ideas or improvements to existing tasks, don't hestitate to leave feedback or [file an issue](https://github.com/jessehouwing/vsts-snyk-task/issues).
+If you have ideas or improvements, don't hestitate to leave feedback or [file an issue](https://github.com/jessehouwing/vsts-snyk-task/issues).

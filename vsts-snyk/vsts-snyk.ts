@@ -16,16 +16,18 @@ class Settings {
 
 async function run() {
     try {
-        let filePath: string;
-        if (tl.filePathSupplied("pathToSnyk")) {
-            filePath = tl.getPathInput("pathToSnyk", false, true);
-        }
-
         let snyk: string;
-        if (!filePath) {
-            snyk = tl.which("snyk");
-        } else {
-            snyk = filePath;
+        const snykInstallation = tl.getInput("optionSnykInstallation");
+        switch (snykInstallation) {
+            case "builtin":
+                snyk = `${__dirname}/node_modules/.bin/snyk`;
+                break;
+            case "system":
+                snyk = tl.which("snyk");
+                break;
+            case "path":
+                snyk = tl.getPathInput("pathToSnyk", true, true);
+                break;
         }
 
         if (!snyk) {

@@ -18,7 +18,7 @@
     "node.js",
     "npm"
   ],
-  "minimumAgentVersion": "1.83.0",
+  "minimumAgentVersion": "1.102.0",
   "groups": [
     {
       "name": "Advanced",
@@ -150,13 +150,28 @@
       "groupName": "Advanced"
     },
     {
+      "name": "optionSnykInstallation",
+      "type": "radio",
+      "label": "Authentication Type",
+      "required": true,
+      "defaultValue": "builtin",
+      "options": {
+        "builtin": "Built-in",
+        "system": "System",
+        "path":  "Path" 
+      },
+      "groupName": "Advanced",
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security cnfigure a service endpoint."
+    },
+    {
       "defaultValue": "",
-      "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Agent.Workfolder)\\tools\\node_modules\\.bin\\snyk.cmd`)",
+      "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Agent.Workfolder)\\tools\\node_modules\\.bin\\snyk.cmd`).",
       "label": "Path to Snyk",
       "name": "pathToSnyk",
-      "required": false,
+      "required": true,
       "type": "filePath",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "visibleRule": "optionSnykInstallation=path"
     }
   ],
   "instanceNameFormat": "Run Snyk",
