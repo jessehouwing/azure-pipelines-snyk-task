@@ -7,8 +7,7 @@
     "email": "jesse.houwing@gmail.com"
   },
   "dependencies": {
-    "shelljs": "^0.7.5",
-    "vsts-task-lib": "^0.7.4"
+    "vsts-task-lib": "^1.1.0"
   },
   "scripts": {
     "initdev:npm": "npm install",
@@ -16,6 +15,7 @@
     "initdev": "npm run initdev:npm  && npm run initdev:typings"
   },
   "devDependencies": {
-    "typings": "^0.8.1"
+    "typescript": "^2.0.9",
+    "typings": "^2.0.0"
   }
 }
