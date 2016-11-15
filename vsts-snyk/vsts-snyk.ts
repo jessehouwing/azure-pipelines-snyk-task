@@ -21,6 +21,7 @@ async function run() {
         switch (snykInstallation) {
             case "builtin":
             {
+                tl.debug(`Using built-in version.`);
                 if (tl.getBoolInput("optionUpgrade", true)) {
                     await upgradeSnyk();
                 }
@@ -34,9 +35,11 @@ async function run() {
             }
             case "system":
                 snyk = tl.which("snyk", true);
+                tl.debug(`Using system installed snyk from: ${snyk}.`);
                 break;
             case "path":
                 snyk = tl.getPathInput("pathToSnyk", true, true);
+                tl.debug(`Using user configured snyk from: ${snyk}.`);
                 break;
         }
 
@@ -64,6 +67,8 @@ async function run() {
 
         if (protect || monitor) {
             const authenticationType: string = tl.getInput("optionAuthenticationType");
+            tl.debug(`Reading snyk token from: ${authenticationType}.`);
+
             switch (authenticationType) {
                 case "token":
                     settings.auth = tl.getInput("optAuth", true);
@@ -96,22 +101,26 @@ async function run() {
 }
 
 async function upgradeSnyk() {
+    tl.debug(`Updating snyk...`);
     const npmRunner = new tr.ToolRunner(tl.which("npm"));
     npmRunner.arg("update");
     npmRunner.arg("snyk@latest");
     npmRunner.arg("--prefix");
-    npmRunner.arg(`"${__dirname}"`);
+    npmRunner.arg(__dirname);
 
     const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
     tl.debug(`result: ${npmResult}`);
 
     if (npmResult !== 0) {
         throw `Failed to update snyk.`;
+    } else {
+        tl.debug(`Done.`);
     }
 }
 
 async function runSnyk(path: string, command: string, settings: Settings)
 {
+    tl.debug(`Calling snyk ${command}...`);
     const snykRunner = new tr.ToolRunner(path);
     snykRunner.arg(command);
 
