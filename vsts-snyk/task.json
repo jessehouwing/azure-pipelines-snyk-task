@@ -73,7 +73,7 @@
         "token": "API Token"
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Select how to authenticate to snyk.io. For better security cnfigure a service endpoint."
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security configure a service endpoint."
     },
     {
       "name": "optServiceEndpoint",
@@ -94,15 +94,6 @@
       "type": "string",
       "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=token"
-    },
-    {
-      "name": "optionFailBuild",
-      "type": "boolean",
-      "label": "Fail Build",
-      "defaultValue": "true",
-      "required": true,
-      "helpMarkDown": "Fail the build when Snyk returns an error message.",
-      "groupName": "Advanced"
     },
     {
       "name": "optionDev",

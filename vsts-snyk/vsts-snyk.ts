@@ -7,7 +7,6 @@ class Settings {
     projectsToScan: string;
     basePath: string;
     auth: string;
-    failBuild: boolean;
     dev: boolean;
     ignorePolicy: boolean;
     trustPolicies: boolean;
@@ -53,7 +52,6 @@ async function run() {
         settings.basePath = tl.getInput("optionBasePath");
         tl.cd(settings.basePath || process.cwd());
         
-        settings.failBuild = tl.getBoolInput("optionFailBuild", false);
         settings.dev = tl.getBoolInput("optionDev", false);
         settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", false);
         settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
@@ -121,7 +119,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
     const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
     tl.debug(`result: ${snykResult}`);
 
-    if (snykResult !== 0){
+    if (snykResult !== 0) {
         throw `Failed: ${command}: ${snykResult}`;
     }
 }
