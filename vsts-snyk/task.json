@@ -149,10 +149,20 @@
       "options": {
         "builtin": "Built-in",
         "system": "System",
-        "path":  "Path" 
+        "path": "Path"
       },
       "groupName": "Advanced",
       "helpMarkdown": "Select which snyk executable to call."
+    },
+    {
+      "defaultValue": "true",
+      "helpMarkdown": "Upgrade the snyk version that's packaged wih this task.",
+      "label": "Upgrade Snyk",
+      "name": "optionUpgrade",
+      "required": true,
+      "type": "boolean",
+      "groupName": "Advanced",
+      "visibleRule": "optionSnykInstallation=builtin"
     },
     {
       "defaultValue": "",

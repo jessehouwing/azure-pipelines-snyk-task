@@ -1,6 +1,6 @@
 ﻿///<reference path="./typings/index.d.ts" />
 import * as tl from "vsts-task-lib/task";
-import * as trm from "vsts-task-lib/toolrunner";
+import * as tr from "vsts-task-lib/toolrunner";
 import * as os from "os"
 
 class Settings {
@@ -21,8 +21,11 @@ async function run() {
         switch (snykInstallation) {
             case "builtin":
             {
-                let isWindows: Boolean = os.platform() === "win32";
+                if (tl.getBoolInput("optionUpgrade", true)) {
+                    await upgradeSnyk();
+                }
 
+                let isWindows: Boolean = os.platform() === "win32";
                 snyk = `${__dirname}/node_modules/.bin/snyk`;
                 if (isWindows) {
                     snyk += ".cmd";
@@ -92,9 +95,24 @@ async function run() {
     }
 }
 
+async function upgradeSnyk() {
+    const npmRunner = new tr.ToolRunner(tl.which("npm"));
+    npmRunner.arg("update");
+    npmRunner.arg("snyk@latest");
+    npmRunner.arg("--prefix");
+    npmRunner.arg(`"${__dirname}"`);
+
+    const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
+    tl.debug(`result: ${npmResult}`);
+
+    if (npmResult !== 0) {
+        throw `Failed to update snyk.`;
+    }
+}
+
 async function runSnyk(path: string, command: string, settings: Settings)
 {
-    const snykRunner = new trm.ToolRunner(path);
+    const snykRunner = new tr.ToolRunner(path);
     snykRunner.arg(command);
 
     switch (command) {
@@ -116,7 +134,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
             break;
     }
 
-    const snykResult: number = await snykRunner.exec(<trm.IExecOptions>{ failOnStdErr: true });
+    const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
     tl.debug(`result: ${snykResult}`);
 
     if (snykResult !== 0) {
