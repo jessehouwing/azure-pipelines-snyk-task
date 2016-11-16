@@ -50,7 +50,17 @@ async function run() {
 
         const test: boolean = tl.getBoolInput("actionTest");
         const protect: boolean = tl.getBoolInput("actionProtect");
-        const monitor: boolean = tl.getBoolInput("actionMonitor");
+        
+        const monitorBranches: string[] = tl.getDelimitedInput("optionMonitorBranches", ";\n", false) || [];
+        let monitor = false;
+        if (tl.getBoolInput("actionMonitor")) {
+            const branch: string = tl.getVariable("Build.SourceBranch") || "";
+            if (matchesMonitorBranch(monitorBranches, branch)) {
+                monitor = true;
+            } else {
+                tl.debug(`Skipping monitor, branch '${branch}' doesn't match.`);
+            }
+        }
 
         const settings: Settings = new Settings();
         
@@ -98,6 +108,10 @@ async function run() {
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
+}
+
+function matchesMonitorBranch(monitorBranches: string[], branch: string) {
+    return (monitorBranches.length === 0 || tl.match([branch], monitorBranches, { matchBase: true, nocase: false }).length > 0);
 }
 
 async function upgradeSnyk() {

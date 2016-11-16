@@ -52,6 +52,19 @@
       "helpMarkDown": "Record the state of dependencies and any vulnerabilities on snyk.io."
     },
     {
+      "name": "optionMonitorBranches",
+      "label": "Only monitor for these branches",
+      "defaultValue": "false",
+      "required": false,
+      "helpMarkDown": "Only call monitor when on the supplied branches or when no filter is entered. Seperate options by `;` or each on a newline. Supports wildcards. Will match against `$(Build.SourceBranch)`.",
+      "type": "multiLine",
+      "properties": {
+        "resizable": true,
+        "rows": "1"
+      },
+      "visibleRule": "actionMonitor=true"
+    },
+    {
       "defaultValue": "$(Build.SourcesDirectory)",
       "helpMarkdown": "Path to the folder containing your `package.json`.",
       "label": "Project folder",
