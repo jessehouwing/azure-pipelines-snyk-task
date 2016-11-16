@@ -83,11 +83,11 @@ async function run() {
             await runSnyk(snyk, "auth", settings);
         }
 
-        if (test) {
-            await runSnyk(snyk, "test", settings);
-        }
         if (protect) {
             await runSnyk(snyk, "protect", settings);
+        }
+        if (test) {
+            await runSnyk(snyk, "test", settings);
         }
         if (monitor) {
             await runSnyk(snyk, "monitor", settings);
