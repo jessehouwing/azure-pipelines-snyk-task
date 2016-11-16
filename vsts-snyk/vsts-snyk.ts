@@ -2,13 +2,13 @@
 import * as tl from "vsts-task-lib/task";
 import * as tr from "vsts-task-lib/toolrunner";
 import * as os from "os"
+import * as path from "path"
 
 class Settings {
     projectsToScan: string;
-    basePath: string;
     auth: string;
     dev: boolean;
-    ignorePolicy: boolean;
+    failBuild: boolean;
     trustPolicies: boolean;
     org: string;
     additionalArguments: string;
@@ -27,7 +27,7 @@ async function run() {
                 }
 
                 let isWindows: Boolean = os.platform() === "win32";
-                snyk = `${__dirname}/node_modules/.bin/snyk`;
+                snyk = path.join(__dirname , "/node_modules/.bin/snyk");
                 if (isWindows) {
                     snyk += ".cmd";
                 }
@@ -65,11 +65,9 @@ async function run() {
         const settings: Settings = new Settings();
         
         settings.projectsToScan = tl.getInput("optionProjectsToScan", true);
-        settings.basePath = tl.getInput("optionBasePath");
-        tl.cd(settings.basePath || process.cwd());
         
         settings.dev = tl.getBoolInput("optionDev", false);
-        settings.ignorePolicy = tl.getBoolInput("optionIgnorePolicy", false);
+        settings.failBuild = tl.getBoolInput("optionFailBuild", false);
         settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
         settings.org = tl.getInput("optionOrg", false);
 
@@ -94,7 +92,17 @@ async function run() {
         }
 
         if (protect) {
-            await runSnyk(snyk, "protect", settings);
+            // detect patch.exe on windows systems if it can't be found in the path
+            const oldPath = process.env["PATH"];
+            try {
+                if (!tl.which("patch")) {
+                    const agentFolder = tl.getVariable("Agent.HomeDirectory");
+                    tl.setEnvVar("PATH", oldPath + ";" + path.join(agentFolder, "/externals/git/usr/bin/") + ";");
+                }
+                await runSnyk(snyk, "protect", settings);
+            } finally {
+                tl.setEnvVar("PATH", oldPath);
+            }
         }
         if (test) {
             await runSnyk(snyk, "test", settings);
@@ -135,6 +143,8 @@ async function upgradeSnyk() {
 async function runSnyk(path: string, command: string, settings: Settings)
 {
     tl.debug(`Calling snyk ${command}...`);
+    tl.setEnvVar("CONTINUOUS_INTEGRATION", "true");
+
     const snykRunner = new tr.ToolRunner(path);
     snykRunner.arg(command);
 
@@ -142,14 +152,18 @@ async function runSnyk(path: string, command: string, settings: Settings)
         case "auth":
             snykRunner.arg(settings.auth);
             break;
-        
-        case "test": 
+
         case "protect":
+        case "test": 
         case "monitor":
-            snykRunner.arg(settings.projectsToScan);
+            if (settings.projectsToScan.match(/\*$/)) {
+                snykRunner.arg("*");
+                tl.cd(settings.projectsToScan.substring(0, settings.projectsToScan.length - 1));
+            } else {
+                tl.cd(settings.projectsToScan);
+            }
 
             snykRunner.argIf(settings.dev, "--dev");
-            snykRunner.argIf(settings.ignorePolicy, "--ignore-policy");
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
 
@@ -160,7 +174,10 @@ async function runSnyk(path: string, command: string, settings: Settings)
     const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
     tl.debug(`result: ${snykResult}`);
 
-    if (snykResult !== 0) {
+    if (snykResult === 1 && !settings.failBuild && command === "test") {
+        tl.warning("Snyk reported one or more issues. Ignoring due to 'Fail Build = false'.");
+    }
+    else if (snykResult !== 0) {
         throw `Failed: ${command}: ${snykResult}`;
     }
 }

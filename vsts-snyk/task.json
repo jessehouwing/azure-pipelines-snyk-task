@@ -30,7 +30,7 @@
   "inputs": [
     {
       "defaultValue": "$(Build.SourcesDirectory)",
-      "helpMarkdown": "Path to the folder containing your `package.json`.",
+      "helpMarkdown": "Path to the folder containing your `package.json`. Optionally append `/*` to scan all projects directly under the selected folder.",
       "label": "Project folder",
       "name": "optionProjectsToScan",
       "required": false,
@@ -65,7 +65,7 @@
       "label": "Only monitor for these branches",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Only call monitor when on the supplied branches or when no filter is entered. Seperate options by `;` or each on a newline. Supports wildcards. Will match against `$(Build.SourceBranch)`.",
+      "helpMarkDown": "Only call monitor when on the supplied branches or when no filter is entered. Seperate options by `;` or each on a newline. Supports wildcards. Will match against `$(Build.SourceBranch)`.<br />e.g. `/heads/refs/master;/heads/refs/hotfix/*",
       "type": "multiLine",
       "properties": {
         "resizable": true,
@@ -94,13 +94,13 @@
       "label": "Auth (API Token)",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Select and configure the service endpoint that has been configured with your snyk.io API token.",
+      "helpMarkDown": "Select and configure the service endpoint that has been configured with your snyk.io API token. <br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
       "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=endpoint"
     },
     {
       "defaultValue": "$(Snyk.Token)",
-      "helpMarkdown": "Provide an API token directly, for security consider storing the value in a variable taht is marked secret.",
+      "helpMarkdown": "Provide an API token directly, for security consider storing the value in a variable taht is marked secret.<br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
       "label": "Auth (API Token)",
       "name": "optAuth",
       "required": false,
@@ -109,21 +109,21 @@
       "visibleRule": "optionAuthenticationType=token"
     },
     {
+      "name": "optionFailBuild",
+      "type": "boolean",
+      "label": "Fail Build",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "If true, will fail the build if snyk detects vulnerable packages; otherwise it will only log a wanring.",
+      "groupName": "Advanced"
+    },
+    {
       "name": "optionDev",
       "type": "boolean",
       "label": "Include development dependencies",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "Include devDependencies (defaults to production only). (`--dev`)",
-      "groupName": "Advanced"
-    },
-    {
-      "name": "optionIgnorePolicy",
-      "type": "boolean",
-      "label": "Ignore policy",
-      "defaultValue": "false",
-      "required": true,
-      "helpMarkDown": "Ignores and resets the state of your policy file. (`--ignore-policy`)",
       "groupName": "Advanced"
     },
     {
@@ -168,7 +168,7 @@
       "helpMarkdown": "Select which snyk executable to call."
     },
     {
-      "defaultValue": "true",
+      "defaultValue": "false",
       "helpMarkdown": "Upgrade the snyk version that's packaged wih this task.",
       "label": "Upgrade Snyk",
       "name": "optionUpgrade",
@@ -179,7 +179,7 @@
     },
     {
       "defaultValue": "",
-      "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Agent.Workfolder)\\tools\\node_modules\\.bin\\snyk.cmd`).",
+      "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Build.SourcesDirectory)\\node_modules\\.bin\\snyk.cmd`).",
       "label": "Path to Snyk",
       "name": "pathToSnyk",
       "required": true,

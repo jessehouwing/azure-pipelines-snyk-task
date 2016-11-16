@@ -5,6 +5,12 @@
 
 # Release Notes
 
+> **19-11-2016**
+> - Workaround: snyk can't find `patch.exe` on windows agents
+> - Added: fail build now optional
+> - Removed: Ignore Policies option
+> - Workaround: snyk doesn't detect VSTS/TFS build agent and log CI suggestion
+
 > **12-11-2016**
 > - Added: Initial preview release
 
@@ -20,7 +26,7 @@ This task supports:
  
 You can supply your snyk API-token through a service connection (recommended) or a text input.
  
-This task depends on snyk, which is not bundled in the current version. There are a few options available:
+This task depends on snyk, which is bundled in the current version. Should you want to use a specific versoinm there are a few options available:
 
  * Install snyk by prepending a NPM package task:
   * command: `install`
@@ -32,11 +38,13 @@ This task depends on snyk, which is not bundled in the current version. There ar
   * Optionally add its path to the systems path environment variable
   * Or supply the path to snyk in the 'Path to Snyk' input
 
-# Future options
- 
- * Auto-install of snyk when needed.
- * Wildcard support in path to project?
+Find the task in the Utility category of both Build and Release.
 
+# Known issues
+ 
+ * Windows: `path\to\project\*` causes `snyk test` to fail.
+ * Windows: `path\to\project\*` causes `snyk protect` to fail.
+ 
 # Documentation
 
 Please check the [Wiki](https://github.com/jessehouwing/vsts-snyk-task/wiki) (coming soon).
