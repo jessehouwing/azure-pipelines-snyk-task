@@ -29,12 +29,12 @@
   ],
   "inputs": [
     {
-      "name": "actionTest",
-      "type": "boolean",
-      "label": "Test",
-      "defaultValue": "true",
-      "required": true,
-      "helpMarkDown": "Test for any known vulnerabilities."
+      "defaultValue": "$(Build.SourcesDirectory)",
+      "helpMarkdown": "Path to the folder containing your `package.json`.",
+      "label": "Project folder",
+      "name": "optionProjectsToScan",
+      "required": false,
+      "type": "filePath"
     },
     {
       "name": "actionProtect",
@@ -43,6 +43,14 @@
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "Protect your code from vulnerabilities and optionally suppress specific vulnerabilities."
+    },
+    {
+      "name": "actionTest",
+      "type": "boolean",
+      "label": "Test",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "Test for any known vulnerabilities."
     },
     {
       "name": "actionMonitor",
@@ -55,7 +63,7 @@
     {
       "name": "optionMonitorBranches",
       "label": "Only monitor for these branches",
-      "defaultValue": "false",
+      "defaultValue": "",
       "required": false,
       "helpMarkDown": "Only call monitor when on the supplied branches or when no filter is entered. Seperate options by `;` or each on a newline. Supports wildcards. Will match against `$(Build.SourceBranch)`.",
       "type": "multiLine",
@@ -65,15 +73,6 @@
       },
       "visibleRule": "actionMonitor=true"
     },
-    {
-      "defaultValue": "$(Build.SourcesDirectory)",
-      "helpMarkdown": "Path to the folder containing your `package.json`.",
-      "label": "Project folder",
-      "name": "optionProjectsToScan",
-      "required": false,
-      "type": "filePath"
-    },
-
 
     {
       "name": "optionAuthenticationType",
