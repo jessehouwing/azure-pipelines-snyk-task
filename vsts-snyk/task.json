@@ -4,7 +4,7 @@
   "friendlyName": "Snyk",
   "description": "Run Snyk to scan your dependencies for vulnerabilities.",
   "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
-  "category": "Build",
+  "category": "Utility",
   "author": "Jesse Houwing",
   "version": {
     "Major": 0,
@@ -12,7 +12,8 @@
     "Patch": 0
   },
   "visibility": [
-    "Build"
+    "Build",
+    "Release"
   ],
   "demands": [
     "node.js",
