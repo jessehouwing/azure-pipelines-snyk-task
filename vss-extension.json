@@ -124,9 +124,23 @@
         "url": "https://snyk.io/",
         "authenticationSchemes": [
           {
-            "type": "ms.vss-endpoint.endpoint-auth-scheme-token"
+            "type": "ms.vss-endpoint.endpoint-auth-scheme-token",
+            "inputDescriptors": [
+              {
+                "id": "apitoken",
+                "name": "API Token",
+                "description": "Go to <a href=\"https://snyk.io/account/\">snyk.io/account</a> or run `snyk auth` to find your API Token.",
+                "inputMode": "textbox",
+                "isConfidential": true,
+                "validation": {
+                  "isRequired": true,
+                  "dataType": "string"
+                }
+              }
+            ]
           }
-        ]
+        ],
+        "helpMarkDown": "Go to <a href=\"https://snyk.io/account/\">snyk.io/account</a> or run `snyk auth` to find your API Token."
       }
     }
 

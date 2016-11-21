@@ -79,31 +79,31 @@
       "type": "radio",
       "label": "Authentication Type",
       "required": true,
-      "defaultValue": "none",
+      "defaultValue": "endpoint",
       "options": {
         "none": "None",
-        "endpoint": "Endpoint",
-        "token": "API Token"
+        "endpoint": "Service Endpoint",
+        "token": "Input"
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Select how to authenticate to snyk.io. For better security configure a service endpoint."
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Protect** and **Monitor**."
     },
     {
       "name": "optServiceEndpoint",
       "type": "connectedService:Snyk",
       "label": "Auth (API Token)",
       "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Select and configure the service endpoint that has been configured with your snyk.io API token. <br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
+      "required": true,
+      "helpMarkDown": "Select or configure the service endpoint to provide your snyk.io API token. <br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
       "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=endpoint"
     },
     {
       "defaultValue": "$(Snyk.Token)",
-      "helpMarkdown": "Provide an API token directly, for security consider storing the value in a variable taht is marked secret.<br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
+      "helpMarkdown": "Provide an API token directly, for security consider using a service endpoint, but at least store the value in a variable that is marked secret.<br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
       "label": "Auth (API Token)",
       "name": "optAuth",
-      "required": false,
+      "required": true,
       "type": "string",
       "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=token"
