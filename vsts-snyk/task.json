@@ -114,7 +114,7 @@
       "label": "Fail Build",
       "defaultValue": "true",
       "required": true,
-      "helpMarkDown": "If true, will fail the build if snyk detects vulnerable packages; otherwise it will only log a wanring.",
+      "helpMarkDown": "If true, will fail the build if snyk detects vulnerable packages; otherwise it will only log a warning.",
       "groupName": "Advanced"
     },
     {
