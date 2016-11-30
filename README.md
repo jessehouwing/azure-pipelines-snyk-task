@@ -1,9 +1,12 @@
-# Preview and 3rd party notice
+# 3rd party notice
 
-* This task is currently in preview. Please provide feedback and suggestions in the GitHub issues.
-* This task has been developed by Jesse Houwing and is not associated with Snyk.io.
+* This task has been developed by Jesse Houwing and is not associated directly with Snyk.io.
 
 # Release Notes
+
+> **30-11-2016**
+> - Removed: Preview flag
+> - Updated: Screenshots & documentation links 
 
 > **19-11-2016**
 > - Workaround: snyk can't find `patch.exe` on windows agents
