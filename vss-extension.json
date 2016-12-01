@@ -55,12 +55,13 @@
     "support": {
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/issues"
     },
-    "repository": {
-      "uri": "https://github.com/jessehouwing/vsts-snyk-task/"
-    },
     "issues": {
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/issues"
     }
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/jessehouwing/vsts-snyk-task"
   },
   "branding": {
     "color": "rgb(34, 34, 72)",
