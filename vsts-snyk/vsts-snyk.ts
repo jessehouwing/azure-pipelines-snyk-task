@@ -167,7 +167,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
 
-            snykRunner.arg(settings.additionalArguments);
+            snykRunner.line(settings.additionalArguments);
             break;
     }
 
