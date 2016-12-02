@@ -97,7 +97,7 @@ async function run() {
             try {
                 if (!tl.which("patch")) {
                     const agentFolder = tl.getVariable("Agent.HomeDirectory");
-                    tl.setEnvVar("PATH", oldPath + ";" + path.join(agentFolder, "/externals/git/usr/bin/") + ";");
+                    tl.setEnvVar("PATH", path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath);
                 }
                 await runSnyk(snyk, "protect", settings);
             } finally {
