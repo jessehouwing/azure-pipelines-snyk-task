@@ -13,14 +13,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.19.1",
+    "snyk": "^1.21.2",
     "vsts-task-lib": "^1.1.0"
   },
   "scripts": {
     "initdev:npm": "npm install",
     "initdev:typings": "typings install",
     "initdev": "npm run initdev:npm  && npm run initdev:typings",
-    "build":  "tsc && npm dedupe && npm prune --production" 
+    "build":  "tsc && npm dedupe && npm prune --production"
   },
   "devDependencies": {
     "typescript": "^2.0.9",

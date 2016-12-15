@@ -50,7 +50,7 @@ async function run() {
 
         const test: boolean = tl.getBoolInput("actionTest");
         const protect: boolean = tl.getBoolInput("actionProtect");
-        
+
         const monitorBranches: string[] = tl.getDelimitedInput("optionMonitorBranches", ";\n", false) || [];
         let monitor = false;
         if (tl.getBoolInput("actionMonitor")) {
@@ -63,9 +63,9 @@ async function run() {
         }
 
         const settings: Settings = new Settings();
-        
+
         settings.projectsToScan = tl.getInput("optionProjectsToScan", true);
-        
+
         settings.dev = tl.getBoolInput("optionDev", false);
         settings.failBuild = tl.getBoolInput("optionFailBuild", false);
         settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
@@ -154,7 +154,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
             break;
 
         case "protect":
-        case "test": 
+        case "test":
         case "monitor":
             if (settings.projectsToScan.match(/\*$/)) {
                 snykRunner.arg("*");
