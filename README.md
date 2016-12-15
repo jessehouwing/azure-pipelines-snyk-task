@@ -29,7 +29,7 @@ This task supports:
  
 You can supply your snyk API-token through a service connection (recommended) or a text input.
  
-This task depends on snyk, which is bundled in the current version. Should you want to use a specific versoinm there are a few options available:
+This task depends on snyk, which is bundled in the current version. Should you want to use a specific version there are a few options available:
 
  * Install snyk by prepending a NPM package task:
   * command: `install`
