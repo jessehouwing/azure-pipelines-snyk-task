@@ -1,5 +1,4 @@
-﻿///<reference path="./typings/index.d.ts" />
-import * as tl from "vsts-task-lib/task";
+﻿import * as tl from "vsts-task-lib/task";
 import * as tr from "vsts-task-lib/toolrunner";
 import * as os from "os"
 import * as path from "path"
