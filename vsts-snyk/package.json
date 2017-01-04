@@ -13,17 +13,17 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.21.2",
-    "vsts-task-lib": "^1.1.0"
+    "snyk": "^1.22.1",
+    "vsts-task-lib": "^2.0.0-preview"
   },
   "scripts": {
     "initdev:npm": "npm install",
-    "initdev:typings": "typings install",
-    "initdev": "npm run initdev:npm  && npm run initdev:typings",
-    "build":  "tsc && npm dedupe && npm prune --production"
+    "initdev": "npm run initdev:npm",
+    "build": "tsc && npm dedupe && npm prune --production"
   },
   "devDependencies": {
-    "typescript": "^2.0.9",
-    "typings": "^2.0.0"
+    "@types/node": "^6.0.56",
+    "@types/q": "0.0.32",
+    "typescript": "^2.1.4"
   }
 }
