@@ -72,7 +72,7 @@ async function run() {
 
         settings.additionalArguments = tl.getInput("optAdditionalArguments", false);
 
-        if (protect || monitor) {
+        if (test || monitor) {
             const authenticationType: string = tl.getInput("optionAuthenticationType");
             tl.debug(`Reading snyk token from: ${authenticationType}.`);
 
@@ -81,8 +81,8 @@ async function run() {
                     settings.auth = tl.getInput("optAuth", true);
                     break;
                 case "endpoint": {
-                    const connectedServiceName: string = tl.getInput("optServiceEndpoint", false);
-                    settings.auth = tl.getEndpointAuthorization(connectedServiceName, true).parameters["apitoken"];
+                    const connectedServiceName: string = tl.getInput("optServiceEndpoint");
+                    settings.auth = tl.getEndpointAuthorization(connectedServiceName, false).parameters["apitoken"];
                     break;
                 }
             }

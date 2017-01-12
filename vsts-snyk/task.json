@@ -81,12 +81,12 @@
       "required": true,
       "defaultValue": "endpoint",
       "options": {
-        "none": "None",
         "endpoint": "Service Endpoint",
-        "token": "Input"
+        "token": "Input",
+        "none": "None"
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Protect** and **Monitor**."
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Test** and **Monitor**."
     },
     {
       "name": "optServiceEndpoint",
