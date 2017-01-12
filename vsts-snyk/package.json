@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.22.1",
+    "snyk": "^1.24.4",
     "vsts-task-lib": "^2.0.0-preview"
   },
   "scripts": {
