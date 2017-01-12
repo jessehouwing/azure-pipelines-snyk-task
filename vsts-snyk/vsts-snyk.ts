@@ -77,13 +77,17 @@ async function run() {
             tl.debug(`Reading snyk token from: ${authenticationType}.`);
 
             switch (authenticationType) {
-                case "token":
+                case "token": {
                     settings.auth = tl.getInput("optAuth", true);
                     break;
+                }
                 case "endpoint": {
-                    const connectedServiceName: string = tl.getInput("optServiceEndpoint");
+                    const connectedServiceName: string = tl.getInput("optServiceEndpoint", true);
                     settings.auth = tl.getEndpointAuthorization(connectedServiceName, false).parameters["apitoken"];
                     break;
+                }
+                case "none": {
+                    throw new Error("Authentication is required in order to use Snyk Test or Monitor.");
                 }
             }
 
