@@ -83,9 +83,8 @@
       "options": {
         "endpoint": "Service Endpoint",
         "token": "Input",
-        "none": "None"
+        "none": "None (Protect only)"
       },
-      "groupName": "Advanced",
       "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Test** and **Monitor**."
     },
     {
@@ -95,7 +94,6 @@
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Select or configure the service endpoint to provide your snyk.io API token. <br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
-      "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=endpoint"
     },
     {
@@ -105,7 +103,6 @@
       "name": "optAuth",
       "required": true,
       "type": "string",
-      "groupName": "Advanced",
       "visibleRule": "optionAuthenticationType=token"
     },
     {
