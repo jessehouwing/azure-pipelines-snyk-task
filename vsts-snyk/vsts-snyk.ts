@@ -100,11 +100,11 @@ async function run() {
             try {
                 if (!tl.which("patch")) {
                     const agentFolder = tl.getVariable("Agent.HomeDirectory");
-                    tl.setEnvVar("PATH", path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath);
+                    process.env['PATH'] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
                 }
                 await runSnyk(snyk, "protect", settings);
             } finally {
-                tl.setEnvVar("PATH", oldPath);
+                process.env['PATH'] = oldPath;
             }
         }
         if (test) {
@@ -122,7 +122,7 @@ async function run() {
 }
 
 function matchesMonitorBranch(monitorBranches: string[], branch: string) {
-    return (monitorBranches.length === 0 || tl.match([branch], monitorBranches, { matchBase: true, nocase: false }).length > 0);
+    return (monitorBranches.length === 0 || tl.match([branch], monitorBranches, null, { matchBase: true, nocase: false }).length > 0);
 }
 
 async function upgradeSnyk() {
@@ -146,7 +146,7 @@ async function upgradeSnyk() {
 async function runSnyk(path: string, command: string, settings: Settings)
 {
     tl.debug(`Calling snyk ${command}...`);
-    tl.setEnvVar("CONTINUOUS_INTEGRATION", "true");
+    process.env["CONTINUOUS_INTEGRATION"] = "true";
 
     const snykRunner = new tr.ToolRunner(path);
     snykRunner.arg(command);
