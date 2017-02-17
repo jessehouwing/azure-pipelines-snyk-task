@@ -13,8 +13,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.24.4",
-    "vsts-task-lib": "^2.0.0-preview"
+    "snyk": "^1.25.0",
+    "vsts-task-lib": "^2.0.1-preview"
   },
   "scripts": {
     "initdev:npm": "npm install",
@@ -24,6 +24,7 @@
   "devDependencies": {
     "@types/node": "^6.0.56",
     "@types/q": "0.0.32",
-    "typescript": "^2.1.4"
+    "typescript": "^2.1.4",
+    "tslint": "^4.3.1"
   }
 }
