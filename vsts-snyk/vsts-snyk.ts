@@ -174,7 +174,7 @@ async function runSnyk(path: string, command: string, settings: Settings)
             break;
     }
 
-    const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
+    const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: true, ignoreReturnCode: true });
     tl.debug(`result: ${snykResult}`);
 
     if (snykResult === 1 && !settings.failBuild && command === "test") {
