@@ -4,6 +4,11 @@
 
 # Release Notes
 
+> **21-02-2017**
+> - Updated: vsts-task-lib to 2.0.2-preview
+> - Updated: built-in snyk to 1.25.0
+> - Fixed: Unchecking Fail on build did not make it partially succeed.
+
 > **30-11-2016**
 > - Removed: Preview flag
 > - Updated: Screenshots & documentation links 
