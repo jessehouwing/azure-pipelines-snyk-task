@@ -101,8 +101,8 @@
       "description": "Donate"
     },
     {
-      "href": "https://jessehouwing.visualstudio.com/vsts-extensions/_build/definitionEditor?definitionId=42",
-      "uri": "https://jessehouwing.visualstudio.com/_apis/public/build/definitions/a88536a2-a889-45a3-a955-ddf1af8aeba1/42/badge",
+      "href": "https://jessehouwing.visualstudio.com/vsts-extensions/_apps/hub/ms.vss-ciworkflow.build-ci-hub?_a=edit-build-definition&id=44",
+      "uri": "https://jessehouwing.visualstudio.com/_apis/public/build/definitions/a88536a2-a889-45a3-a955-ddf1af8aeba1/44/badge",
       "description": "Build"
     }
   ],
