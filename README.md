@@ -4,6 +4,10 @@
 
 # Release Notes
 
+> **13-03-2017**
+> - Updated: built-in snyk to 1.25.2
+> - Added: snyk badge
+
 > **21-02-2017**
 > - Updated: vsts-task-lib to 2.0.2-preview
 > - Updated: built-in snyk to 1.25.0
