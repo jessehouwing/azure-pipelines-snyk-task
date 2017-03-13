@@ -91,6 +91,11 @@
   ],
   "badges": [
     {
+      "href": "https://snyk.io/test/github/jessehouwing/vsts-snyk-task",
+      "uri": "https://snyk.io/test/github/jessehouwing/vsts-snyk-task/badge.svg?targetFile=vsts-snyk%2Fpackage.json)](https://snyk.io/test/github/jessehouwing/vsts-snyk-task?targetFile=vsts-snyk%2Fpackage.json",
+      "description": "Snyk"
+    },
+    {
       "href": "https://paypal.me/jessehouwing/5",
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/blob/master/extension/images/donate.png?raw=true",
       "description": "Donate"
