@@ -91,7 +91,7 @@
   ],
   "badges": [
     {
-      "href": "https://snyk.io/test/github/jessehouwing/vsts-snyk-task",
+      "href": "https://snyk.io/test/github/jessehouwing/vsts-snyk-task?targetFile=vsts-snyk%2Fpackage.json",
       "uri": "https://snyk.io/test/github/jessehouwing/vsts-snyk-task/badge.svg?targetFile=vsts-snyk%2Fpackage.json",
       "description": "Snyk"
     },
