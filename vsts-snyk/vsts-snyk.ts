@@ -1,16 +1,18 @@
 ﻿import * as tl from "vsts-task-lib/task";
 import * as tr from "vsts-task-lib/toolrunner";
-import * as os from "os"
-import * as path from "path"
+import * as os from "os";
+import * as path from "path";
 
 class Settings {
     projectsToScan: string;
+    file: string;
     auth: string;
     dev: boolean;
     failBuild: boolean;
     trustPolicies: boolean;
     org: string;
     additionalArguments: string;
+    severityThreshold: string;
 }
 
 async function run() {
@@ -63,8 +65,9 @@ async function run() {
 
         const settings: Settings = new Settings();
 
+        settings.severityThreshold = tl.getInput("optionSeverityThreshold", false) || "default";
+        settings.file = tl.getInput("optionFile", false) || "default";
         settings.projectsToScan = tl.getInput("optionProjectsToScan", true);
-
         settings.dev = tl.getBoolInput("optionDev", false);
         settings.failBuild = tl.getBoolInput("optionFailBuild", false);
         settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
@@ -100,11 +103,11 @@ async function run() {
             try {
                 if (!tl.which("patch")) {
                     const agentFolder = tl.getVariable("Agent.HomeDirectory");
-                    process.env['PATH'] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
+                    process.env["PATH"] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
                 }
                 await runSnyk(snyk, "protect", settings);
             } finally {
-                process.env['PATH'] = oldPath;
+                process.env["PATH"] = oldPath;
             }
         }
         if (test) {
@@ -128,7 +131,7 @@ function matchesMonitorBranch(monitorBranches: string[], branch: string) {
 async function upgradeSnyk() {
     tl.debug(`Updating snyk...`);
     const npmRunner = new tr.ToolRunner(tl.which("npm"));
-    npmRunner.arg("update");
+    npmRunner.arg("install");
     npmRunner.arg("snyk@latest");
     npmRunner.arg("--prefix");
     npmRunner.arg(__dirname);
@@ -143,8 +146,7 @@ async function upgradeSnyk() {
     }
 }
 
-async function runSnyk(path: string, command: string, settings: Settings)
-{
+async function runSnyk(path: string, command: string, settings: Settings) {
     tl.debug(`Calling snyk ${command}...`);
     process.env["CONTINUOUS_INTEGRATION"] = "true";
 
@@ -166,9 +168,11 @@ async function runSnyk(path: string, command: string, settings: Settings)
                 tl.cd(settings.projectsToScan);
             }
 
+            snykRunner.argIf(settings.severityThreshold !== "default", `--severity-threshold=${settings.severityThreshold}`);
             snykRunner.argIf(settings.dev, "--dev");
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
+            snykRunner.argIf(settings.file !== "default", `--file="${settings.file}"`);
 
             snykRunner.line(settings.additionalArguments);
             break;

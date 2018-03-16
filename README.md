@@ -4,6 +4,11 @@
 
 # Release Notes
 
+> **16-03-2018**
+> - Updated: built-in snyk to 1.70.2
+> - Added: support severity threshold
+> - Added: support for specifying package file type
+
 > **13-03-2017**
 > - Updated: built-in snyk to 1.25.2
 > - Added: snyk badge

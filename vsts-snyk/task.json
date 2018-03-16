@@ -37,6 +37,29 @@
       "type": "filePath"
     },
     {
+      "name": "optionFile",
+      "type": "pickList",
+      "label": "File",
+      "required": false,
+      "defaultValue": "",
+      "options": {
+        "default": "",
+        "yarn.lock": "yarn.lock",
+        "package.json": "package.json",
+        "Gemfile": "Gemfile",
+        "Gemfile.lock": "Gemfile.lock",
+        "pom.xml": "pom.xml",
+        "requirements.txt": "requirements.txt",
+        "build.gradle": "build.gradle",
+        "build.sbt": "build.sbt",
+        "Gopkg.lock": "Gopkg.lock",
+        "vendor/vendor.json": "vendor/vendor.json",
+        "obj/project.assets.json": "obj/project.assets.json",
+        "packages.config": "packages.config"
+      },
+      "helpMarkdown": "Sets package file."
+    },
+    {
       "name": "actionProtect",
       "type": "boolean",
       "label": "Protect",
@@ -73,7 +96,6 @@
       },
       "visibleRule": "actionMonitor=true"
     },
-
     {
       "name": "optionAuthenticationType",
       "type": "radio",
@@ -104,6 +126,21 @@
       "required": true,
       "type": "string",
       "visibleRule": "optionAuthenticationType=token"
+    },
+    {
+      "name": "optionSeverityThreshold",
+      "type": "pickList",
+      "label": "Severity Threshold",
+      "required": false,
+      "defaultValue": "",
+      "options": {
+        "default": "",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "groupName": "Advanced",
+      "helpMarkdown": "Only report vulnerabilities of provided level or higher."
     },
     {
       "name": "optionFailBuild",

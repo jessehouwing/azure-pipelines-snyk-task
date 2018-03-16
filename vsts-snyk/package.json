@@ -13,13 +13,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.69.7",
-    "vsts-task-lib": "^2.2.1"
+    "snyk": "^1.70.2",
+    "vsts-task-lib": "^2.3.0"
   },
   "scripts": {
     "initdev:npm": "npm install",
     "initdev": "npm run initdev:npm",
-    "build": "tsc && npm dedupe && npm prune --production"
+    "build": "tsc && tslint --project . && npm dedupe && npm prune --production"
   },
   "devDependencies": {
     "@types/node": "^6.0.56",
