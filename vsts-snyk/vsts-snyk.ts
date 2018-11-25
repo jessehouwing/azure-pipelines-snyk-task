@@ -144,7 +144,7 @@ async function upgradeSnyk() {
     npmRunner.arg("--prefix");
     npmRunner.arg(__dirname);
 
-    const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
+    const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: false });
     tl.debug(`result: ${npmResult}`);
 
     if (npmResult !== 0) {
