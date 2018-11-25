@@ -32,12 +32,15 @@
       "defaultValue": "$(Build.SourcesDirectory)",
       "helpMarkdown": "Path to the folder containing your `package.json`. Optionally append `/*` to scan all projects directly under the selected folder.",
       "label": "Project folder",
-      "name": "optionProjectsToScan",
+      "name": "workingDirectory",
       "required": false,
-      "type": "filePath"
+      "type": "filePath",
+      "aliases": [
+        "cwd", "optionProjectsToScan"
+      ]
     },
     {
-      "name": "optionFile",
+      "name": "file",
       "type": "pickList",
       "label": "File",
       "required": false,
@@ -57,34 +60,49 @@
         "obj/project.assets.json": "obj/project.assets.json",
         "packages.config": "packages.config"
       },
-      "helpMarkdown": "Sets package file."
+      "properties": {
+        "EditableOptions": "True"
+      },
+      "helpMarkdown": "Sets package file.",
+      "aliases": [
+        "optionFile"
+      ]
     },
     {
-      "name": "actionProtect",
+      "name": "protect",
       "type": "boolean",
       "label": "Protect",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "Protect your code from vulnerabilities and optionally suppress specific vulnerabilities."
+      "helpMarkDown": "Protect your code from vulnerabilities and optionally suppress specific vulnerabilities.",
+      "aliases": [
+        "actionProtect"
+      ]
     },
     {
-      "name": "actionTest",
+      "name": "test",
       "type": "boolean",
       "label": "Test",
       "defaultValue": "true",
       "required": true,
-      "helpMarkDown": "Test for any known vulnerabilities."
+      "helpMarkDown": "Test for any known vulnerabilities.",
+      "aliases": [
+        "actionTest"
+      ]
     },
     {
-      "name": "actionMonitor",
+      "name": "monitor",
       "type": "boolean",
       "label": "Monitor",
       "defaultValue": "false",
       "required": true,
-      "helpMarkDown": "Record the state of dependencies and any vulnerabilities on snyk.io."
+      "helpMarkDown": "Record the state of dependencies and any vulnerabilities on snyk.io.",
+      "aliases": [
+        "actionMonitor"
+      ]
     },
     {
-      "name": "optionMonitorBranches",
+      "name": "branches",
       "label": "Only monitor for these branches",
       "defaultValue": "",
       "required": false,
@@ -94,10 +112,13 @@
         "resizable": true,
         "rows": "1"
       },
-      "visibleRule": "actionMonitor=true"
+      "visibleRule": "monitor=true",
+      "aliases": [
+        "optionMonitorBranches"
+      ]
     },
     {
-      "name": "optionAuthenticationType",
+      "name": "authType",
       "type": "radio",
       "label": "Authentication Type",
       "required": true,
@@ -107,28 +128,37 @@
         "token": "Input",
         "none": "None (Protect only)"
       },
-      "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Test** and **Monitor**."
+      "helpMarkdown": "Select how to authenticate to snyk.io. For better security use a service endpoint. A authentication token is required in order to run **Test** and **Monitor**.",
+      "aliases": [
+        "optionAuthenticationType"
+      ]
     },
     {
-      "name": "optServiceEndpoint",
+      "name": "endpoint",
       "type": "connectedService:Snyk",
       "label": "Auth (API Token)",
       "defaultValue": "",
       "required": true,
       "helpMarkDown": "Select or configure the service endpoint to provide your snyk.io API token. <br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
-      "visibleRule": "optionAuthenticationType=endpoint"
+      "visibleRule": "authType=endpoint",
+      "aliases": [
+        "optServiceEndpoint"
+      ]
     },
     {
       "defaultValue": "$(Snyk.Token)",
       "helpMarkdown": "Provide an API token directly, for security consider using a service endpoint, but at least store the value in a variable that is marked secret.<br/><br/>Go to [snyk.io/Account](https://snyk.io/account/) to find your API Token.",
       "label": "Auth (API Token)",
-      "name": "optAuth",
+      "name": "token",
       "required": true,
       "type": "string",
-      "visibleRule": "optionAuthenticationType=token"
+      "visibleRule": "authType=token",
+      "aliases": [
+        "optAuth"
+      ]
     },
     {
-      "name": "optionSeverityThreshold",
+      "name": "severityThreshold",
       "type": "pickList",
       "label": "Severity Threshold",
       "required": false,
@@ -140,55 +170,73 @@
         "high": "High"
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Only report vulnerabilities of provided level or higher."
+      "helpMarkdown": "Only report vulnerabilities of provided level or higher.",
+      "aliases": [
+        "optionSeverityThreshold"
+      ]
     },
     {
-      "name": "optionFailBuild",
+      "name": "failBuild",
       "type": "boolean",
       "label": "Fail Build",
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": "If true, will fail the build if snyk detects vulnerable packages; otherwise it will only log a warning.",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "aliases": [
+        "optionFailBuild"
+      ]
     },
     {
-      "name": "optionDev",
+      "name": "dev",
       "type": "boolean",
       "label": "Include development dependencies",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "Include devDependencies (defaults to production only). (`--dev`)",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "aliases": [
+        "optionDev"
+      ]
     },
     {
-      "name": "optionTrustPolicies",
+      "name": "trustPolicies",
       "type": "boolean",
       "label": "Trust policies",
       "defaultValue": "false",
       "required": true,
       "helpMarkDown": "Applies and uses ignore rules from your dependencies's Snyk policies, otherwise ignore policies are only shown as a suggestion. (`--trust-policies`)",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "aliases": [
+        "optionTrustPolicies"
+      ]
     },
     {
       "defaultValue": "",
       "helpMarkdown": "Associate a snapshot (or wizard snapshot) with a specific organisation. (`--org=<org>`).",
       "label": "Organization",
-      "name": "optionOrg",
+      "name": "org",
       "required": false,
       "type": "string",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "aliases": [
+        "optionOrg"
+      ]
     },
     {
       "defaultValue": "",
       "helpMarkdown": "Supply any additional parameters to the call to snyk.",
       "label": "Additional arguments",
-      "name": "optAdditionalArguments",
+      "name": "args",
       "required": false,
       "type": "string",
-      "groupName": "Advanced"
+      "groupName": "Advanced",
+      "aliases": [
+        "optAdditionalArguments"
+      ]
     },
     {
-      "name": "optionSnykInstallation",
+      "name": "whichSnyk",
       "type": "radio",
       "label": "Snyk location",
       "required": true,
@@ -199,27 +247,37 @@
         "path": "Path"
       },
       "groupName": "Advanced",
-      "helpMarkdown": "Select which snyk executable to call."
+      "helpMarkdown": "Select which snyk executable to call.",
+      "aliases": [
+        "optionSnykInstallation"
+      ]
     },
     {
       "defaultValue": "false",
       "helpMarkdown": "Upgrade the snyk version that's packaged wih this task.",
       "label": "Upgrade Snyk",
-      "name": "optionUpgrade",
+      "name": "autoUpdate",
       "required": true,
       "type": "boolean",
       "groupName": "Advanced",
-      "visibleRule": "optionSnykInstallation=builtin"
+      "visibleRule": "whichSnyk=builtin",
+      "aliases": [
+        "optionUpgrade"
+      ]
     },
     {
       "defaultValue": "",
       "helpMarkdown": "Full path to where snyk is located (for when snyk is not part of the path). (e.g.: `$(Build.SourcesDirectory)\\node_modules\\.bin\\snyk.cmd`).",
       "label": "Path to Snyk",
-      "name": "pathToSnyk",
+      "name": "snykPath",
       "required": true,
       "type": "filePath",
       "groupName": "Advanced",
-      "visibleRule": "optionSnykInstallation=path"
+      "visibleRule": "whichSnyk=path",
+      "aliases":[
+        "pathToSnyk"
+      ]
+
     }
   ],
   "instanceNameFormat": "Scan for vulnerable package dependencies.",

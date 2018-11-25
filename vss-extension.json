@@ -14,7 +14,7 @@
   ],
   "description": "Snyk continuously finds and fixes vulnerabilities in your dependencies.",
   "categories": [
-    "Build and release"
+    "Azure Pipelines"
   ],
   "tags": [
     "Extension",
@@ -48,7 +48,7 @@
   },
   "links": {
     "home": {
-      "uri": "https://blog.jessehouwing.nl/"
+      "uri": "https://jessehouwing.net/"
     },
     "getstarted": {
       "uri": "https://github.com/jessehouwing/vsts-snyk-task/wiki/Getting-Started"
