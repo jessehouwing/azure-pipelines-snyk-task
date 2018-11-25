@@ -1,5 +1,5 @@
-﻿import * as tl from "vsts-task-lib/task";
-import * as tr from "vsts-task-lib/toolrunner";
+﻿import * as tl from "azure-pipelines-task-lib/task";
+import * as tr from "azure-pipelines-task-lib/toolrunner";
 import * as os from "os";
 import * as path from "path";
 
@@ -18,12 +18,12 @@ class Settings {
 async function run() {
     try {
         let snyk: string;
-        const snykInstallation = tl.getInput("optionSnykInstallation", true);
+        const snykInstallation = tl.getInput("whichSnyk", true);
         switch (snykInstallation) {
             case "builtin":
             {
                 tl.debug(`Using built-in version.`);
-                if (tl.getBoolInput("optionUpgrade", true)) {
+                if (tl.getBoolInput("autoUpdate", true)) {
                     await upgradeSnyk();
                 }
 
@@ -39,7 +39,7 @@ async function run() {
                 tl.debug(`Using system installed snyk from: ${snyk}.`);
                 break;
             case "path":
-                snyk = tl.getPathInput("pathToSnyk", true, true);
+                snyk = tl.getPathInput("snykPath", true, true);
                 tl.debug(`Using user configured snyk from: ${snyk}.`);
                 break;
         }
@@ -48,13 +48,17 @@ async function run() {
             tl.setResult(tl.TaskResult.Failed, "Could not locate snyk.");
             return;
         }
+        else {
+            tl.debug(`Using version:`);
+            await tl.exec(snyk, "--version");
+        }
 
-        const test: boolean = tl.getBoolInput("actionTest");
-        const protect: boolean = tl.getBoolInput("actionProtect");
+        const test: boolean = tl.getBoolInput("test");
+        const protect: boolean = tl.getBoolInput("protect");
 
-        const monitorBranches: string[] = tl.getDelimitedInput("optionMonitorBranches", ";\n", false) || [];
+        const monitorBranches: string[] = tl.getDelimitedInput("branches", ";\n", false) || [];
         let monitor = false;
-        if (tl.getBoolInput("actionMonitor")) {
+        if (tl.getBoolInput("monitor")) {
             const branch: string = tl.getVariable("Build.SourceBranch") || "";
             if (matchesMonitorBranch(monitorBranches, branch)) {
                 monitor = true;
@@ -65,27 +69,27 @@ async function run() {
 
         const settings: Settings = new Settings();
 
-        settings.severityThreshold = tl.getInput("optionSeverityThreshold", false) || "default";
-        settings.file = tl.getInput("optionFile", false) || "default";
-        settings.projectsToScan = tl.getInput("optionProjectsToScan", true);
-        settings.dev = tl.getBoolInput("optionDev", false);
-        settings.failBuild = tl.getBoolInput("optionFailBuild", false);
-        settings.trustPolicies = tl.getBoolInput("optionTrustPolicies", false);
-        settings.org = tl.getInput("optionOrg", false);
+        settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
+        settings.file = tl.getInput("file", false) || "default";
+        settings.projectsToScan = tl.getInput("workingDirectory", true) || tl.cwd();
+        settings.dev = tl.getBoolInput("dev", false);
+        settings.failBuild = tl.getBoolInput("failBuild", false);
+        settings.trustPolicies = tl.getBoolInput("trustPolicies", false);
+        settings.org = tl.getInput("org", false);
 
-        settings.additionalArguments = tl.getInput("optAdditionalArguments", false);
+        settings.additionalArguments = tl.getInput("args", false);
 
         if (test || monitor) {
-            const authenticationType: string = tl.getInput("optionAuthenticationType");
+            const authenticationType: string = tl.getInput("authType");
             tl.debug(`Reading snyk token from: ${authenticationType}.`);
 
             switch (authenticationType) {
                 case "token": {
-                    settings.auth = tl.getInput("optAuth", true);
+                    settings.auth = tl.getInput("token", true);
                     break;
                 }
                 case "endpoint": {
-                    const connectedServiceName: string = tl.getInput("optServiceEndpoint", true);
+                    const connectedServiceName: string = tl.getInput("endpoint", true);
                     settings.auth = tl.getEndpointAuthorization(connectedServiceName, false).parameters["apitoken"];
                     break;
                 }
@@ -99,11 +103,15 @@ async function run() {
 
         if (protect) {
             // detect patch.exe on windows systems if it can't be found in the path
-            const oldPath = process.env["PATH"];
+            const oldPath: string = process.env["PATH"];
             try {
                 if (!tl.which("patch")) {
                     const agentFolder = tl.getVariable("Agent.HomeDirectory");
                     process.env["PATH"] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
+
+                    if (!tl.which("patch")) {
+                        tl.warning("Could not find 'patch' in path. Protect may fail.");
+                    }
                 }
                 await runSnyk(snyk, "protect", settings);
             } finally {
@@ -136,7 +144,7 @@ async function upgradeSnyk() {
     npmRunner.arg("--prefix");
     npmRunner.arg(__dirname);
 
-    const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: true });
+    const npmResult = await npmRunner.exec(<tr.IExecOptions>{ failOnStdErr: false });
     tl.debug(`result: ${npmResult}`);
 
     if (npmResult !== 0) {
@@ -172,7 +180,7 @@ async function runSnyk(path: string, command: string, settings: Settings) {
             snykRunner.argIf(settings.dev, "--dev");
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
-            snykRunner.argIf(settings.file !== "default", `--file="${settings.file}"`);
+            snykRunner.argIf(settings.file !== "default", `--file=${settings.file}`);
 
             snykRunner.line(settings.additionalArguments);
             break;
@@ -189,4 +197,4 @@ async function runSnyk(path: string, command: string, settings: Settings) {
     }
 }
 
-run();
+void run();

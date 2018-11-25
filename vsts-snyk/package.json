@@ -13,8 +13,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "snyk": "^1.96.0",
-    "vsts-task-lib": "^2.3.0"
+    "azure-pipelines-task-lib": "^2.7.5",
+    "snyk": "^1.110.2"
   },
   "scripts": {
     "initdev:npm": "npm install",
@@ -24,7 +24,8 @@
   "devDependencies": {
     "@types/node": "^6.0.56",
     "@types/q": "0.0.32",
-    "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "typestrict": "^1.0.1"
   }
 }
