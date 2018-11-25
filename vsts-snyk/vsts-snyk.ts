@@ -48,6 +48,10 @@ async function run() {
             tl.setResult(tl.TaskResult.Failed, "Could not locate snyk.");
             return;
         }
+        else {
+            tl.debug(`Using version:`);
+            await tl.exec(snyk, "--version");
+        }
 
         const test: boolean = tl.getBoolInput("test");
         const protect: boolean = tl.getBoolInput("protect");
@@ -67,7 +71,7 @@ async function run() {
 
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
         settings.file = tl.getInput("file", false) || "default";
-        settings.projectsToScan = tl.getInput("workingDirectory", true);
+        settings.projectsToScan = tl.getInput("workingDirectory", true) || tl.cwd();
         settings.dev = tl.getBoolInput("dev", false);
         settings.failBuild = tl.getBoolInput("failBuild", false);
         settings.trustPolicies = tl.getBoolInput("trustPolicies", false);
@@ -81,7 +85,7 @@ async function run() {
 
             switch (authenticationType) {
                 case "token": {
-                    settings.auth = tl.getInput("tokeb", true);
+                    settings.auth = tl.getInput("token", true);
                     break;
                 }
                 case "endpoint": {
@@ -99,11 +103,15 @@ async function run() {
 
         if (protect) {
             // detect patch.exe on windows systems if it can't be found in the path
-            const oldPath = process.env["PATH"];
+            const oldPath: string = process.env["PATH"];
             try {
                 if (!tl.which("patch")) {
                     const agentFolder = tl.getVariable("Agent.HomeDirectory");
                     process.env["PATH"] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
+
+                    if (!tl.which("patch")) {
+                        tl.warning("Could not find 'patch' in path. Protect may fail.");
+                    }
                 }
                 await runSnyk(snyk, "protect", settings);
             } finally {
@@ -189,4 +197,4 @@ async function runSnyk(path: string, command: string, settings: Settings) {
     }
 }
 
-run();
+void run();
