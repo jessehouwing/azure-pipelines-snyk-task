@@ -180,7 +180,7 @@ async function runSnyk(path: string, command: string, settings: Settings) {
             snykRunner.argIf(settings.dev, "--dev");
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org="${settings.org}"`);
-            snykRunner.argIf(settings.file !== "default", `--file="${settings.file}"`);
+            snykRunner.argIf(settings.file !== "default", `--file=${settings.file}`);
 
             snykRunner.line(settings.additionalArguments);
             break;
