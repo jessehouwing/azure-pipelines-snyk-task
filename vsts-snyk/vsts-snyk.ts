@@ -2,6 +2,7 @@
 import * as tr from "azure-pipelines-task-lib/toolrunner";
 import * as os from "os";
 import * as path from "path";
+import { chmodSync } from "fs";
 
 class Settings {
     projectsToScan: string;
@@ -31,6 +32,8 @@ async function run() {
                 snyk = path.join(__dirname , "/node_modules/.bin/snyk");
                 if (isWindows) {
                     snyk += ".cmd";
+                } else {
+                    chmodSync(snyk, "777");
                 }
                 break;
             }
