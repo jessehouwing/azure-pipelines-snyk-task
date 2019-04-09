@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "jessehouwing-vsts-snyk-task",
-  "name": "Snyk Task",
+  "name": "Snyk for Azure Pipelines",
   "version": "0.0.0",
   "publisher": "jessehouwing",
   "targets": [
