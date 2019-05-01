@@ -1,7 +1,7 @@
 {
-  "name": "vsts-snyk-task",
-  "version": "0.0.0",
-  "description": "Snyk task",
+  "name": "azure-pipelines-snyk-task",
+  "version": "2.0.0",
+  "description": "Snyk",
   "author": {
     "name": "Jesse Houwing",
     "email": "jesse.houwing@gmail.com",
@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "azure-pipelines-task-lib": "^2.8.0",
-    "snyk": "^1.148.0"
+    "snyk": "^1.157.2"
   },
   "scripts": {
     "initdev:npm": "npm install",

@@ -252,7 +252,7 @@ paket-files/
 *.sln.iml
 
 .vs/
-vsts-snyk/vsts-snyk.js*
+snyk/snyk.js*
 /.cr
-/vsts-snyk/typings
+/snyk/typings
 *.vsix

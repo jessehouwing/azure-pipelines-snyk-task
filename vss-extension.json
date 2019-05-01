@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "jessehouwing-vsts-snyk-task",
   "name": "Snyk for Azure Pipelines",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "publisher": "jessehouwing",
   "targets": [
     {
@@ -74,19 +74,19 @@
   },
   "files": [
     {
-      "path": "vsts-snyk/node_modules"
+      "path": "snyk/node_modules"
     },
     {
-      "path": "vsts-snyk/vsts-snyk.js"
+      "path": "snyk/snyk.js"
     },
     {
-      "path": "vsts-snyk/icon.png"
+      "path": "snyk/icon.png"
     },
     {
-      "path": "vsts-snyk/icon.svg"
+      "path": "snyk/icon.svg"
     },
     {
-      "path": "vsts-snyk/task.json"
+      "path": "snyk/task.json"
     }
   ],
   "badges": [
@@ -97,7 +97,7 @@
     },
     {
       "href": "https://paypal.me/jessehouwing/5",
-      "uri": "https://github.com/jessehouwing/vsts-snyk-task/blob/master/extension/images/donate.png?raw=true",
+      "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/blob/master/extension/images/donate.png?raw=true",
       "description": "Donate"
     },
     {
@@ -108,13 +108,13 @@
   ],
   "contributions": [
     {
-      "id": "vsts-snyk",
+      "id": "snyk",
       "type": "ms.vss-distributed-task.task",
       "targets": [
         "ms.vss-distributed-task.tasks"
       ],
       "properties": {
-        "name": "vsts-snyk"
+        "name": "snyk"
       }
     },
 
