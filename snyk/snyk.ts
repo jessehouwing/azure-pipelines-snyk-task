@@ -80,9 +80,7 @@ async function run() {
         {
             settings.files = [ tl.getInput("file", false) || "default" ];
         } else {
-            settings.filesGlob = tl.getInput("filesGlob", false);
-
-            settings.files = tl.findMatch(settings.cwd, settings.filesGlob);
+            settings.files = tl.findMatch(settings.cwd, tl.getDelimitedInput("filesGlob", "\n", false));
         }
         
         settings.cwd = tl.getInput("workingDirectory", true) || tl.cwd();
