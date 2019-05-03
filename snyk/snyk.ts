@@ -85,6 +85,9 @@ async function run() {
             settings.files = [ tl.getInput("file", false) || "default" ];
         } else {
             settings.files = tl.findMatch(settings.cwd, [...tl.getDelimitedInput("filesGlob", "\n", false)]);
+            if (settings.files.length === 0) {
+                tl.warning("No matching files found.");
+            }
         }
         
         settings.dev = tl.getBoolInput("dev", false);
