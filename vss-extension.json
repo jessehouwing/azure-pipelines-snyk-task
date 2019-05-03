@@ -74,19 +74,34 @@
   },
   "files": [
     {
-      "path": "snyk/node_modules"
+      "path": "snyk/v1/node_modules"
     },
     {
-      "path": "snyk/snyk.js"
+      "path": "snyk/v1/snyk.js"
     },
     {
-      "path": "snyk/icon.png"
+      "path": "snyk/v1/icon.png"
     },
     {
-      "path": "snyk/icon.svg"
+      "path": "snyk/v1/icon.svg"
     },
     {
-      "path": "snyk/task.json"
+      "path": "snyk/v1/task.json"
+    },
+    {
+      "path": "snyk/v2/node_modules"
+    },
+    {
+      "path": "snyk/v2/snyk.js"
+    },
+    {
+      "path": "snyk/v2/icon.png"
+    },
+    {
+      "path": "snyk/v2/icon.svg"
+    },
+    {
+      "path": "snyk/v2/task.json"
     }
   ],
   "badges": [

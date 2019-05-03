@@ -1,0 +1,31 @@
+{
+  "name": "azure-pipelines-snyk-task",
+  "version": "1.2.0",
+  "description": "Snyk task",
+  "author": {
+    "name": "Jesse Houwing",
+    "email": "jesse.houwing@gmail.com",
+    "url": "https://github.com/jessehouwing/azure-pipelines-snyk-task/issues"
+  },
+  "repository": {
+    "type": "git",
+    "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.8.0",
+    "snyk": "^1.161.1"
+  },
+  "scripts": {
+    "initdev:npm": "npm install",
+    "initdev": "npm run initdev:npm",
+    "build": "tsc && tslint --project . && npm dedupe && npm prune --production"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.56",
+    "@types/q": "0.0.32",
+    "tslint": "^5.15.0",
+    "typescript": "^3.4.2",
+    "typestrict": "^1.0.2"
+  }
+}
