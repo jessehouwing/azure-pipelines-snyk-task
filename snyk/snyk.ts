@@ -5,6 +5,7 @@ import * as path from "path";
 import { chmodSync } from "fs";
 
 class Settings {
+    debug: boolean;
     cwd: string;
     file: string;
     filesGlob: string;
@@ -74,6 +75,8 @@ async function run() {
 
         const settings: Settings = new Settings();
 
+        const debugMode: string = tl.getVariable('System.Debug');
+        settings.debug = debugMode ? debugMode.toLowerCase() != 'false' : false;
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
         settings.cwd = tl.getInput("workingDirectory", true) || tl.cwd();
 
@@ -179,6 +182,7 @@ async function runSnyk(path: string, command: string, settings: Settings) {
             snykRunner.argIf(settings.trustPolicies, "--trust-policies");
             snykRunner.argIf(settings.org, `--org=${settings.org}`);
             snykRunner.argIf(settings.file !== "default", `--file=${settings.file}`);
+            snykRunner.argIf(settings.debug, "--debug");
 
             snykRunner.line(settings.additionalArguments);
             break;
