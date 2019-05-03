@@ -61,16 +61,20 @@
         "default": "",
         "yarn.lock": "yarn.lock",
         "package.json": "package.json",
+        "package-lock.json": "package-lock.json",
         "Gemfile": "Gemfile",
         "Gemfile.lock": "Gemfile.lock",
         "pom.xml": "pom.xml",
+        "Pipfile": "Pipfile",
         "requirements.txt": "requirements.txt",
         "build.gradle": "build.gradle",
+        "build.gradle.kts": "build.gradle.kts",
         "build.sbt": "build.sbt",
         "Gopkg.lock": "Gopkg.lock",
         "vendor/vendor.json": "vendor/vendor.json",
         "obj/project.assets.json": "obj/project.assets.json",
-        "packages.config": "packages.config"
+        "packages.config": "packages.config",
+        "composer.lock": "composer.lock"
       },
       "properties": {
         "EditableOptions": "True"
@@ -85,9 +89,9 @@
       "name": "filesGlob",
       "type": "multiLine",
       "label": "Files",
-      "required": false,
-      "defaultValue": "",
-      "helpMarkdown": "Sets package file(s). Supports [glob patterns](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=azure-devops#pattern-syntax).",
+      "required": true,
+      "defaultValue": "#yarn.lock\n#package.json\n#package-lock.json\n#Gemfile\n#Gemfile.lock\n#pom.xml\n#Pipfile\n#requirements.txt\n#build.gradle\n#build.gradle.kts\n#build.sbt\n#Gopkg.lock\n#**/vendor/vendor.json\n#**/obj/project.assets.json\n#packages.config\n#composer.lock\n\n#!**/node_modules/**/*",
+      "helpMarkdown": "Sets package file(s). Uncomment the type of files to scan. Supports [glob patterns](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=azure-devops#pattern-syntax).",
       "aliases": [
         "files"
       ],
