@@ -76,7 +76,7 @@ async function run() {
 
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
 
-        if (tl.getBoolInput("multiFile", false) || false)
+        if (!(tl.getBoolInput("multiFile", false) || false))
         {
             settings.files = [ tl.getInput("file", false) || "default" ];
         } else {
