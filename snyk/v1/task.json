@@ -3,7 +3,7 @@
   "name": "SnykTask",
   "friendlyName": "Snyk",
   "description": "Run Snyk to scan your dependencies for vulnerabilities.",
-  "helpMarkDown": "Version: #{Build.BuildNumber}#. [More Information](https://github.com/jessehouwing/vsts-snyk-task/wiki/)",
+  "helpMarkDown": "Version: 1.2.x. [More Information](https://github.com/jessehouwing/azure-pipelines-snyk-task/wiki/)",
   "category": "Utility",
   "author": "Jesse Houwing",
   "version": {
