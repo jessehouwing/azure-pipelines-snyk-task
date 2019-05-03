@@ -119,16 +119,23 @@ async function run() {
             await runSnyk(snyk, "protect", settings);
         }
 
-        settings.files.forEach(async (file) => {
-            settings.file = file;
-            
-            if (test) {
-                await runSnyk(snyk, "test", settings);
+        await Promise.all(settings.files.map(async (file) => {
+            try{
+                settings.file = file;
+                
+                if (test) {
+                    await runSnyk(snyk, "test", settings);
+                }
+                if (monitor) {
+                    await runSnyk(snyk, "monitor", settings);
+                }
+
+                return Promise.resolve();
             }
-            if (monitor) {
-                await runSnyk(snyk, "monitor", settings);
+            catch(err) {
+                return Promise.reject(err);
             }
-        });
+        }));
 
         tl.setResult(tl.TaskResult.Succeeded, "Done.", true);
     }
