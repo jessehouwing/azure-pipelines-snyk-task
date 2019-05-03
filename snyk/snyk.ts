@@ -75,15 +75,15 @@ async function run() {
         const settings: Settings = new Settings();
 
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
+        settings.cwd = tl.getInput("workingDirectory", true) || tl.cwd();
 
         if (!(tl.getBoolInput("multiFile", false) || false))
         {
             settings.files = [ tl.getInput("file", false) || "default" ];
         } else {
-            settings.files = tl.findMatch(settings.cwd, tl.getDelimitedInput("filesGlob", "\n", false));
+            settings.files = tl.findMatch(settings.cwd, [...tl.getDelimitedInput("filesGlob", "\n", false)]);
         }
         
-        settings.cwd = tl.getInput("workingDirectory", true) || tl.cwd();
         settings.dev = tl.getBoolInput("dev", false);
         settings.failBuild = tl.getBoolInput("failBuild", false);
         settings.trustPolicies = tl.getBoolInput("trustPolicies", false);
@@ -92,7 +92,7 @@ async function run() {
         settings.additionalArguments = tl.getInput("args", false);
 
         if (test || monitor) {
-            const authenticationType: string = tl.getInput("authType");
+            const authenticationType: string = tl.getInput("authType", true);
             tl.debug(`Reading snyk token from: ${authenticationType}.`);
 
             switch (authenticationType) {
@@ -117,23 +117,16 @@ async function run() {
             await runSnyk(snyk, "protect", settings);
         }
 
-        await Promise.all(settings.files.map(async (file) => {
-            try{
-                settings.file = file;
-                
-                if (test) {
-                    await runSnyk(snyk, "test", settings);
-                }
-                if (monitor) {
-                    await runSnyk(snyk, "monitor", settings);
-                }
-
-                return Promise.resolve();
+        for (let i = 0; i < settings.files.length; i++) {
+            settings.file = settings.files[i];
+            
+            if (test) {
+                await runSnyk(snyk, "test", settings);
             }
-            catch(err) {
-                return Promise.reject(err);
+            if (monitor) {
+                await runSnyk(snyk, "monitor", settings);
             }
-        }));
+        }
 
         tl.setResult(tl.TaskResult.Succeeded, "Done.", true);
     }

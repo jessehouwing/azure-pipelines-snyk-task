@@ -87,7 +87,7 @@
       "label": "Files",
       "required": false,
       "defaultValue": "",
-      "helpMarkdown": "Sets package file(s).",
+      "helpMarkdown": "Sets package file(s). Supports [glob patterns](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=azure-devops#pattern-syntax).",
       "aliases": [
         "files"
       ],
