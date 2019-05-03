@@ -264,7 +264,7 @@
       "name": "whichSnyk",
       "type": "radio",
       "label": "Snyk location",
-      "required": true,
+      "required": false,
       "defaultValue": "builtin",
       "options": {
         "builtin": "Built-in",
@@ -282,7 +282,7 @@
       "helpMarkdown": "Upgrade the snyk version that's packaged wih this task.",
       "label": "Upgrade Snyk",
       "name": "autoUpdate",
-      "required": true,
+      "required": false,
       "type": "boolean",
       "groupName": "Advanced",
       "visibleRule": "whichSnyk=builtin",
