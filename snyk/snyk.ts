@@ -76,11 +76,11 @@ async function run() {
 
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
 
-        if (tl.getBoolInput("multiFiles", false) || false)
+        if (tl.getBoolInput("multiFile", false) || false)
         {
             settings.files = [ tl.getInput("file", false) || "default" ];
         } else {
-            settings.filesGlob = tl.getInput("files", false);
+            settings.filesGlob = tl.getInput("filesGlob", false);
 
             settings.files = tl.findMatch(settings.cwd, settings.filesGlob);
         }
