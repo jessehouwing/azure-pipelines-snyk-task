@@ -45,6 +45,13 @@
       ]
     },
     {
+      "name": "multiFile",
+      "type": "boolean",
+      "label": "Use glob",
+      "defaultValue":"false",
+      "required":false
+    },
+    {
       "name": "file",
       "type": "pickList",
       "label": "File",
@@ -71,7 +78,20 @@
       "helpMarkdown": "Sets package file.",
       "aliases": [
         "file", "optionFile"
-      ]
+      ],
+      "visibleRule": "multiFile != true"
+    },
+    {
+      "name": "filesGlob",
+      "type": "multiLine",
+      "label": "Files",
+      "required": false,
+      "defaultValue": "",
+      "helpMarkdown": "Sets package file(s).",
+      "aliases": [
+        "files"
+      ],
+      "visibleRule": "multiFile = true"
     },
     {
       "name": "protect",

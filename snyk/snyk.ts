@@ -5,8 +5,10 @@ import * as path from "path";
 import { chmodSync } from "fs";
 
 class Settings {
-    projectsToScan: string;
+    cwd: string;
     file: string;
+    filesGlob: string;
+    files: string[];
     auth: string;
     dev: boolean;
     failBuild: boolean;
@@ -73,8 +75,17 @@ async function run() {
         const settings: Settings = new Settings();
 
         settings.severityThreshold = tl.getInput("severityThreshold", false) || "default";
-        settings.file = tl.getInput("file", false) || "default";
-        settings.projectsToScan = tl.getInput("workingDirectory", true) || tl.cwd();
+
+        if (tl.getBoolInput("multiFiles", false) || false)
+        {
+            settings.files = [ tl.getInput("file", false) || "default" ];
+        } else {
+            settings.filesGlob = tl.getInput("files", false);
+
+            settings.files = tl.findMatch(settings.cwd, settings.filesGlob);
+        }
+        
+        settings.cwd = tl.getInput("workingDirectory", true) || tl.cwd();
         settings.dev = tl.getBoolInput("dev", false);
         settings.failBuild = tl.getBoolInput("failBuild", false);
         settings.trustPolicies = tl.getBoolInput("trustPolicies", false);
@@ -105,33 +116,24 @@ async function run() {
         }
 
         if (protect) {
-            // detect patch.exe on windows systems if it can't be found in the path
-            const oldPath: string = process.env["PATH"];
-            try {
-                if (!tl.which("patch")) {
-                    const agentFolder = tl.getVariable("Agent.HomeDirectory");
-                    process.env["PATH"] = path.join(agentFolder, "/externals/git/usr/bin/") + ";" + oldPath;
+            await runSnyk(snyk, "protect", settings);
+        }
 
-                    if (!tl.which("patch")) {
-                        tl.warning("Could not find 'patch' in path. Protect may fail.");
-                    }
-                }
-                await runSnyk(snyk, "protect", settings);
-            } finally {
-                process.env["PATH"] = oldPath;
+        settings.files.forEach(async (file) => {
+            settings.file = file;
+            
+            if (test) {
+                await runSnyk(snyk, "test", settings);
             }
-        }
-        if (test) {
-            await runSnyk(snyk, "test", settings);
-        }
-        if (monitor) {
-            await runSnyk(snyk, "monitor", settings);
-        }
+            if (monitor) {
+                await runSnyk(snyk, "monitor", settings);
+            }
+        });
 
-        tl.setResult(tl.TaskResult.Succeeded, "Done.");
+        tl.setResult(tl.TaskResult.Succeeded, "Done.", true);
     }
     catch (err) {
-        tl.setResult(tl.TaskResult.Failed, err.message);
+        tl.setResult(tl.TaskResult.Failed, err.message, true);
     }
 }
 
@@ -172,12 +174,7 @@ async function runSnyk(path: string, command: string, settings: Settings) {
         case "protect":
         case "test":
         case "monitor":
-            if (settings.projectsToScan.match(/\*$/)) {
-                snykRunner.arg("*");
-                tl.cd(settings.projectsToScan.substring(0, settings.projectsToScan.length - 1));
-            } else {
-                tl.cd(settings.projectsToScan);
-            }
+            tl.cd(settings.cwd);
 
             snykRunner.argIf(settings.severityThreshold !== "default", `--severity-threshold=${settings.severityThreshold}`);
             snykRunner.argIf(settings.dev, "--dev");
@@ -189,14 +186,14 @@ async function runSnyk(path: string, command: string, settings: Settings) {
             break;
     }
 
-    const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: true, ignoreReturnCode: true });
+    const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: false, ignoreReturnCode: true });
     tl.debug(`result: ${snykResult}`);
 
     if (snykResult === 1 && !settings.failBuild && command === "test") {
         tl.warning("Snyk reported one or more issues. Ignoring due to 'Fail Build = false'.");
     }
     else if (snykResult !== 0) {
-        throw `Failed: ${command}: ${snykResult}`;
+        tl.setResult(tl.TaskResult.Failed, "Vulerabilities found.");
     }
 }
 
