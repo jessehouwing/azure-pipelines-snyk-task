@@ -127,7 +127,10 @@ async function run() {
         for (let i = 0; i < settings.files.length; i++) {
             settings.file = path.resolve(settings.files[i]);
             
-            if (settings.file.endsWith("/vendor/vendor.json")  || settings.file.endsWith("/obj/project.assets.json") )
+            if (settings.file.endsWith("\\vendor\\vendor.json") 
+             || settings.file.endsWith("\\obj\\project.assets.json")
+             || settings.file.endsWith("/vendor/vendor.json") 
+             || settings.file.endsWith("/obj/project.assets.json") )
             {
                 settings.cwd = path.resolve(path.join(path.dirname(settings.file), "../"));
             }
@@ -202,6 +205,9 @@ async function runSnyk(path: string, command: string, settings: Settings) {
             break;
     }
 
+    if (tl.cwd) {
+        tl.cd(settings.cwd);
+    }
     const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: false, ignoreReturnCode: true });
     tl.debug(`result: ${snykResult}`);
 
