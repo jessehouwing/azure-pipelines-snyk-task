@@ -151,7 +151,7 @@
               {
                 "id": "apitoken",
                 "name": "API Token",
-                "description": "Go to <a href=\"https://snyk.io/account/\">snyk.io/account</a> or run `snyk auth` to find your API Token.",
+                "description": "Go to <a href=\"https://snyk.io/account/\" target=\"_blank\">snyk.io/account</a> or run `snyk auth` to find your API Token.",
                 "inputMode": "textbox",
                 "isConfidential": true,
                 "validation": {
