@@ -252,7 +252,7 @@ paket-files/
 *.sln.iml
 
 .vs/
-snyk/v*/snyk.js*
+/snyk/v*/snyk.js*
 /.cr
 /snyk/v*/typings
 *.vsix

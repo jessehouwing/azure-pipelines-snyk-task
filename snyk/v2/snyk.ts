@@ -17,6 +17,7 @@ class Settings {
     org: string;
     additionalArguments: string;
     severityThreshold: string;
+    policyFile: string;
 }
 
 async function run() {
@@ -124,7 +125,17 @@ async function run() {
         }
 
         for (let i = 0; i < settings.files.length; i++) {
-            settings.file = settings.files[i];
+            settings.file = path.resolve(settings.files[i]);
+            
+            if (settings.file.endsWith("/vendor/vendor.json")  || settings.file.endsWith("/obj/project.assets.json") )
+            {
+                settings.cwd = path.resolve(path.join(path.dirname(settings.file), "../"));
+            }
+            
+            // const policyPath = path.resolve(path.join(settings.cwd, "./.snyk"));
+            // if (tl.exist(policyPath)) {
+            //     settings.policyFile = policyPath;
+            // }
             
             if (test) {
                 await runSnyk(snyk, "test", settings);
