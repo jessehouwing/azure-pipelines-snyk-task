@@ -212,10 +212,11 @@ async function runSnyk(path: string, command: string, settings: Settings) {
     tl.debug(`result: ${snykResult}`);
 
     if (snykResult === 1 && !settings.failBuild && command === "test") {
-        tl.warning("Snyk reported one or more issues. Ignoring due to 'Fail Build = false'.");
+        tl.warning("Ignoring due to 'Fail Build = false'.");
+        tl.warning("Vulerabilities found: " + settings.file);
     }
     else if (snykResult !== 0) {
-        tl.setResult(tl.TaskResult.Failed, "Vulerabilities found.");
+        tl.setResult(tl.TaskResult.Failed, "Vulerabilities found: " + settings.file);
     }
 }
 
