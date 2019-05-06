@@ -211,12 +211,19 @@ async function runSnyk(path: string, command: string, settings: Settings) {
     const snykResult = await snykRunner.exec(<tr.IExecOptions>{ failOnStdErr: false, ignoreReturnCode: true });
     tl.debug(`result: ${snykResult}`);
 
-    if (snykResult === 1 && !settings.failBuild && command === "test") {
-        tl.warning("Ignoring due to 'Fail Build = false'.");
-        tl.warning("Vulerabilities found: " + settings.file);
+    if (snykResult === 1 && command === "test") {
+        const message = "Snyk found issues: " + settings.file;
+        if (!settings.failBuild){
+            tl.warning(message)
+            tl.warning("Ignoring due to 'Fail Build = false'.");
+        }
+        else
+        {
+            tl.setResult(tl.TaskResult.Failed, message);
+        }
     }
     else if (snykResult !== 0) {
-        tl.setResult(tl.TaskResult.Failed, "Vulerabilities found: " + settings.file);
+        throw `Failed: ${command}: ${snykResult}`;
     }
 }
 
