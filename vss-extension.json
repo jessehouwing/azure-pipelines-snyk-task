@@ -123,7 +123,7 @@
   ],
   "contributions": [
     {
-      "id": "snyk",
+      "id": "vsts-snyk",
       "type": "ms.vss-distributed-task.task",
       "targets": [
         "ms.vss-distributed-task.tasks"
