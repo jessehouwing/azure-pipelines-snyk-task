@@ -120,10 +120,6 @@ async function run() {
             await runSnyk(snyk, "auth", settings);
         }
 
-        if (protect) {
-            await runSnyk(snyk, "protect", settings);
-        }
-
         for (let i = 0; i < settings.files.length; i++) {
             settings.file = path.resolve(settings.files[i]);
             
@@ -135,11 +131,9 @@ async function run() {
                 settings.cwd = path.resolve(path.join(path.dirname(settings.file), "../"));
             }
             
-            // const policyPath = path.resolve(path.join(settings.cwd, "./.snyk"));
-            // if (tl.exist(policyPath)) {
-            //     settings.policyFile = policyPath;
-            // }
-            
+            if (protect) {
+                await runSnyk(snyk, "protect", settings);
+            }
             if (test) {
                 await runSnyk(snyk, "test", settings);
             }
