@@ -25,7 +25,5 @@
     "typescript": "^3.4.5",
     "typestrict": "^1.0.2"
   },
-  "dependencies": {
-    "snyk": "^1.163.3"
-  }
+  "dependencies": {}
 }
