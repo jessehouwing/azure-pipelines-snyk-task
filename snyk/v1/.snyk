@@ -5,4 +5,28 @@ ignore:
   'npm:shelljs:20140723':
     - azure-pipelines-task-lib > shelljs:
         reason: No applicable
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-mvn-plugin > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > snyk-php-plugin > @snyk/composer-lockfile-parser > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-03T17:03:16.211Z'
