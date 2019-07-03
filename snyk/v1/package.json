@@ -14,12 +14,14 @@
   "license": "MIT",
   "dependencies": {
     "azure-pipelines-task-lib": "^2.8.0",
-    "snyk": "^1.185.5"
+    "snyk": "^1.189.0"
   },
   "scripts": {
     "initdev:npm": "npm install",
     "initdev": "npm run initdev:npm",
-    "build": "tsc && tslint --project . && npm dedupe && npm prune --production"
+    "build": "tsc && tslint --project . && npm dedupe && npm prune --production",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "@types/node": "^6.0.56",
@@ -27,5 +29,6 @@
     "tslint": "^5.15.0",
     "typescript": "^3.4.2",
     "typestrict": "^1.0.2"
-  }
+  },
+  "snyk": true
 }
