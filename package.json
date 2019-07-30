@@ -18,7 +18,10 @@
     "initdev:v2": "cd ./snyk/v2 && npm run initdev && cd ../../",
     "build": "npm run build:v1 && npm run build:v2",
     "build:v1": "cd ./snyk/v1 && tsc && tslint --project . && npm dedupe && npm prune --production && cd ../../",
-    "build:v2": "cd ./snyk/v2 && tsc && tslint --project . && npm dedupe && npm prune --production && cd ../../"
+    "build:v2": "cd ./snyk/v2 && tsc && tslint --project . && npm dedupe && npm prune --production && cd ../../",
+    "update-snyk": "npm run update-snyk:v1 && npm run update-snyk:v2",
+    "update-snyk:v1": "cd ./snyk/v1 && npm install snyk@latest --save && cd ../../",
+    "update-snyk:v2": "cd ./snyk/v2 && npm install snyk@latest --save && cd ../../"
   },
   "devDependencies": {
     "tslint": "^5.16.0",
