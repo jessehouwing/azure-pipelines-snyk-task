@@ -1,6 +1,8 @@
-# 3rd party notice
+# 3rd party & deprecation notice
 
 * This task has been developed by Jesse Houwing and is not associated directly with Snyk.io.
+
+In the past 3 years I was able to fill the gap by providing this extension to add Snyk to your Azure Pipeline. Snyk has now officially released their own extension. This task will be maintained for a little while longer, but please do [upgrade to the official extension](https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan).
 
 # Description
 

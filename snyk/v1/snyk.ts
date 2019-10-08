@@ -18,6 +18,13 @@ class Settings {
 
 async function run() {
     try {
+        tl.warning("============================ DEPRECATION NOTICE ============================");
+        tl.warning("Snyk has published their official Azure Pipelines extension. Get it here:");
+        tl.warning("https://marketplace.visualstudio.com/items?itemName=Snyk.snyk-security-scan");
+        tl.warning("");
+        tl.warning("                       Thank you for trusting my work over the past 3 years.");
+        tl.warning("============================ DEPRECATION NOTICE ============================");
+
         let snyk: string;
         const snykInstallation = tl.getInput("whichSnyk", true);
         switch (snykInstallation) {
