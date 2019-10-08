@@ -14,7 +14,7 @@
   "license": "MIT",
   "dependencies": {
     "azure-pipelines-task-lib": "^2.8.0",
-    "snyk": "^1.217.1"
+    "snyk": "^1.232.0"
   },
   "scripts": {
     "initdev:npm": "npm install",
