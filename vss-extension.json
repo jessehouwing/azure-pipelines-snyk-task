@@ -43,7 +43,10 @@
       "path": "readme.md"
     },
     "license": {
-      "path": "license.txt"
+      "path": "LICENSE.md"
+    },
+    "privacy": {
+      "path": "PRIVACY.md"
     }
   },
   "links": {
@@ -58,6 +61,12 @@
     },
     "issues": {
       "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/issues"
+    },
+    "license": {
+      "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/LICENSE.md"
+    },
+    "privacypolicy": {
+      "uri": "https://github.com/jessehouwing/azure-pipelines-snyk-task/blob/master/PRIVACY.md"
     }
   },
   "repository": {
